@@ -130,7 +130,7 @@ align-items: center;
     border-bottom:  1px solid #19a4bd;
 }
 
-input#password, input#username {
+input#password, input#username, input#email, input#confirmpassword {
     border-radius: 5px 5px 5px 5px;
     display: inline-block;
     font-size: 16px;
@@ -180,4 +180,8 @@ width: 50%;
 
 .forgotPassword {
     border-top: 2px solid #d0d0d0;
+}
+
+.email {
+    margin-top: 2em;
 }
