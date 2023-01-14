@@ -15,15 +15,15 @@
     <div class="formContent">
        <div class="toplinks">
            
-           <a href="./login_page.html">
+           <a href="{% url 'login' %}">
                <h2 class="formLabel">Login</h2>
            </a>
-           <a href="">
+           <a href="{% url 'signup' %}">
                <h2 class="formLabel">Signup</h2>
            </a>
        </div>
 
-        <form role="form" method="POST" action="./login_page.html">
+        <form role="form" method="POST" action="./login.html">
 
 <div>
     <label for="username">Username</label>
