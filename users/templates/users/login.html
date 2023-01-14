@@ -6,17 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'users/users.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700&family=Orbitron&display=swap" rel="stylesheet">
     <title>Login Page</title>
 </head>
 <body>
     <div class="formContent">
-        <a href="./login_page.html">
-            <h2 class="formLabel">Login</h2>
-        </a>
-
-        <a href="">
-            <h2 class="formLabel">Signup</h2>
-        </a>
+       <div class="toplinks">
+           
+           <a href="./login_page.html">
+               <h2 class="formLabel">Login</h2>
+           </a>
+           <a href="">
+               <h2 class="formLabel">Signup</h2>
+           </a>
+       </div>
 
         <form role="form" method="POST" action="./login_page.html">
 
@@ -45,7 +50,7 @@
 
 <div class="formFooter">
     <a href="placeholder">
-        <h2>Forgot your password?</h2>
+        <h2 class="forgotPassword">Forgot your password?</h2>
     </a>
 
     <a href="placeholder">
