@@ -20,8 +20,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -60,9 +60,9 @@ select {
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {
@@ -73,115 +73,112 @@ select {
   }
 }
 
-
-
-
 /* Login Page */
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(28, 108, 119, 0.664);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(28, 108, 119, 0.664);
 }
 
 /* Typography */
 
-a,p,h1,h2,h3,label {
-color:hsla(0, 0%, 100%, 0.897);
-font-family: 'Montserrat', sans-serif;
-font-family: 'Orbitron', sans-serif;
+a,
+p,
+h1,
+h2,
+h3,
+label {
+  color: hsla(0, 0%, 100%, 0.897);
+  font-family: "Montserrat", sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
-
-
-
 .formContent {
-width: 25em;
-text-align: center;
-margin-bottom: 2em;
-background-color: #222;
-padding-top: 4em;
-padding-bottom: 2em;
-border-radius: 10px;
-display: flex;
-gap: 1em;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  width: 25em;
+  text-align: center;
+  margin-bottom: 2em;
+  background-color: #222;
+  padding-top: 4em;
+  padding-bottom: 2em;
+  border-radius: 10px;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .toplinks {
-    margin-bottom: 2em;
-    display: flex;
-    gap: 1em;
-    
-    
+  margin-bottom: 2em;
+  display: flex;
+  gap: 1em;
 }
 
-.toplinks>a {
-    text-decoration: none;
-    color:hsla(0, 0%, 100%, 0.897);
-    text-transform: uppercase;
-    border-bottom:  1px solid transparent;
+.toplinks > a {
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.897);
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
 }
 
-.toplinks>a:hover {
-    border-bottom:  1px solid #19a4bd;
+.toplinks > a:hover {
+  border-bottom: 1px solid #19a4bd;
 }
 
-input#password, input#username, input#email, input#confirmpassword {
-    border-radius: 5px 5px 5px 5px;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    transition: all .5s ease-in-out;
-    width: 20em;
-    background-color: rgb(121, 120, 120);
-    border: 2px solid #d0d0d0;
+input#id_password1,
+input#id_username,
+input#id_email,
+input#id_password2 {
+  border-radius: 5px 5px 5px 5px;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+  width: 20em;
+  background-color: rgb(121, 120, 120);
+  border: 2px solid #d0d0d0;
 }
 
 button {
-background-color: #56baed;
-cursor:pointer;
-border: none;
-border-radius: 5px 5px 5px 5px;
-box-shadow: 0 10px 30px 0 rgba(95,186,233,.4);
-color: #fff;
-display: inline-block;
-font-size: 13px;
-margin: 5px 20px 40px;
-padding: 15px;
-text-align: center;
-text-decoration: none;
-text-transform: uppercase;
-width: 50%;
+  background-color: #56baed;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  margin: 5px 20px 40px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 50%;
 }
 
-.formFooter>a {
-    text-decoration: none;
-    
+.formFooter > a {
+  text-decoration: none;
 }
 
-
-.formFooter>a>h2:hover {
-    border-bottom:  1px solid #19a4bd;
-    
+.formFooter > a > h2:hover {
+  border-bottom: 1px solid #19a4bd;
 }
 
-.formFooter>a>h2 {
-    font-size: 1rem;
-    border-bottom:  1px solid transparent;
-    line-height: 3em;
+.formFooter > a > h2 {
+  font-size: 1rem;
+  border-bottom: 1px solid transparent;
+  line-height: 3em;
 }
 
 .forgotPassword {
-    border-top: 2px solid #d0d0d0;
+  border-top: 2px solid #d0d0d0;
 }
 
 .email {
-    margin-top: 2em;
+  margin-top: 2em;
 }
