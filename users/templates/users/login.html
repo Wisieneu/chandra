@@ -1,63 +1,48 @@
-{% load static %}
+{% load static %} {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'users/users.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700&family=Orbitron&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'users/users.css' %}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700&family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
     <title>Login Page</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="formContent">
-       <div class="toplinks">
-           
-           <a href="{% url 'login' %}">
-               <h2 class="formLabel">Login</h2>
-           </a>
-           <a href="{% url 'signup' %}">
-               <h2 class="formLabel">Signup</h2>
-           </a>
-       </div>
+      <div class="toplinks">
+        <a href="{% url 'login' %}">
+          <h2 class="formLabel">Login</h2>
+        </a>
+        <a href="{% url 'signup' %}">
+          <h2 class="formLabel">Signup</h2>
+        </a>
+      </div>
 
-        <form role="form" method="POST" action="./login.html">
+      <form method="POST">
+        {{ form|crispy }}
+        <button type="submit" class="" id="login-button">Login</button>
+      </form>
 
-<div>
-    <label for="username">Username</label>
-        <div><input id="username" type="text" class="form-control" name="username" value required autofocus></div>
-</div>
+      <div class="formFooter">
+        <a href="placeholder">
+          <h2 class="forgotPassword">Forgot your password?</h2>
+        </a>
 
-<div>
-    <label for="password">Password</label>
-        <div><input id="password" type="password" class="form-control" name="password" required></div>
-</div>
-
-<div class="form-group">
-
-    <div class="checkbox">
-        <label class="formLabel">
-            <input type="checkbox" name="remember">
-             Remember me 
-        </label>
+        <a href="placeholder">
+          <h2>Forgot your username?</h2>
+        </a>
+      </div>
     </div>
-</div>
-
-<button type="submit" class="" id="login-button">Login</button>
-        </form>
-
-<div class="formFooter">
-    <a href="placeholder">
-        <h2 class="forgotPassword">Forgot your password?</h2>
-    </a>
-
-    <a href="placeholder">
-        <h2>Forgot your username?</h2>
-    </a>
-</div>
-
-    </div>
-</body>
+  </body>
 </html>
