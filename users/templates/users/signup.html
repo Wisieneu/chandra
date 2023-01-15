@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,33 +41,7 @@
 
       <form method="POST">
         {% csrf_token %}
-        <div>
-          <label for="id_username">Username</label>
-          <div>
-            {{ form.username }}
-          </div>
-        </div>
-
-        <div class="id_email">
-          <label class="email" for="email">E-mail</label>
-          <div>
-            {{ form.email }}
-          </div>
-        </div>
-
-        <div>
-          <label for="id_password1">Password</label>
-          <div>
-            {{ form.password1 }}
-          </div>
-        </div>
-
-        <div>
-          <label for="id_password2">Confirm Password</label>
-          <div>
-            {{ form.password2 }}
-          </div>
-        </div>
+        {{ form|crispy }}
 
         <button type="submit" class="" id="signup-button">Signup</button>
       </form>
