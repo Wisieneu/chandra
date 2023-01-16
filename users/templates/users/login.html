@@ -19,6 +19,15 @@
     <title>Login Page</title>
   </head>
   <body>
+    <div id="messages-box">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
     <div class="formContent">
       <div class="toplinks">
         <a href="{% url 'login' %}">
