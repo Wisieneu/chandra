@@ -1,0 +1,10 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <h2>{{ Profile.}}
+    <h3>{{ user.username }}</h2>
+    {% if user.profile.first_name and user.profile.last_name %}
+        <h3> {{ user.profile.first_name }} {{ user.profile.last_name }}
+    {% endif %}
+    <img src='{{ user.profile.image.url }}'>
+    
+{% endblock content %}

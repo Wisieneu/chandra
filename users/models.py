@@ -12,6 +12,6 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         if self.first_name and self.last_name:
-            return f'{self.first_name} {self.last_name}'
+            return f'{self.first_name} {self.last_name} - {self.user.username} ({self.display_name}) profile'
         else:
-            return self.display_name
+            return f'{self.user.username} ({self.display_name}) Profile'
