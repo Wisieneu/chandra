@@ -5,8 +5,6 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from .forms import UserRegisterForm
 
-def login(request):
-    return render(request, 'users/login.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -23,6 +21,6 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-@login_required('login')
+@login_required()
 def profile(request):
     return render(request, 'users/profile.html')
