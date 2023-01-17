@@ -6,8 +6,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
-    display_name = models.CharField(max_length=32)
-    profile_picture = models.ImageField(default='default.jpg', upload_to='profile_pictures')
+    display_name = models.CharField(max_length=32, default=str(user))
+    profile_picture = models.ImageField(default='assets/default.jpg', upload_to='profile_pictures')
     
 
     def __str__(self) -> str:

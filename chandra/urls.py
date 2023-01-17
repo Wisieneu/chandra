@@ -29,6 +29,7 @@ urlpatterns = [
     path('signup/', user_views.signup, name='signup'),
     path('logout/', user_views.logout_view, name='logout'),
     path('profile/', user_views.profile, name='profile-self'),
+    path('settings/', home_views.settings_view, name='settings'),
 ]
 
 if settings.DEBUG:
