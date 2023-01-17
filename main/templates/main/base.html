@@ -10,6 +10,21 @@
       type="text/css"
       href="{% static 'main/main.css' %}"
     />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
     {% if title %}
     <title>Chandra - {{ title }}</title>
     {% else %}
@@ -17,25 +32,29 @@
     {% endif %}
   </head>
   <body>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
     <div class="sidebarContent">
       <nav>
-        <a href="{% url 'index' %}">Home</a>
-        <a href="#">Notifications</a>
-        <a href="#">Settings</a>
-        <a href="{% url 'profile-self' %}">Profile</a>
+        <a href="{% url 'index' %}">
+          <i class="fa-solid fa-house-user fa-fw"></i> Home</a
+        >
+        <a href="#"> <i class="fa-solid fa-bell fa-fw"></i> Notifications</a>
+        <a href="#"><i class="fa-solid fa-gear fa-fw"></i> Settings</a>
+        <a href="{% url 'profile-self' %}"
+          ><i class="fa-solid fa-user fa-fw"></i> Profile</a
+        >
       </nav>
     </div>
 
     <!-- MAIN DIV HERE -->
-        {% block content %}{% endblock %}
+    <div class="main-content">{% block content %}{% endblock %}</div>
     <!-- END DIV HERE -->
-    
   </body>
+
+  <script
+    src="https://kit.fontawesome.com/008e34ddf3.js"
+    crossorigin="anonymous"
+  ></script>
 </html>

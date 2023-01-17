@@ -1,15 +1,20 @@
 {% extends 'main/base.html' %}
 {% block content %}
-<div class="wrapper">
-    <div class="input-box">
-        <div class="input-area">
-            <div class="input editable" contenteditable="true" spellcheck="false"></div>
-            <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+
+<div class="page-wrapper">
+    <div class="border-wrapper">
+        <div class="wrapper">
+            <div class="input-box">
+              <div class="tweet-area">
+                <span class="placeholder">What's happening?</span>
+                <div class="input editable" contenteditable="true" spellcheck="false"></div>
+                <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+              </div>
+            <div class="input-card-footer">
+                <span class="counter">100</span>
+                <button>Post</button>
+            </div>
         </div>
-    </div>
-    <div class="input-card-footer">
-        <span class="counter">100</span>
-        <button>Post</button>
     </div>
 </div>
 {% endblock content %}
