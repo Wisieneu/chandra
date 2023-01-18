@@ -200,6 +200,7 @@ nav > a:hover {
 }
 
 .input-card-footer {
+  z-index: -2;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -227,4 +228,13 @@ button {
   pointer-events: none;
   transition: background 0.2s ease;
   margin-bottom: 10px;
+}
+
+button.active {
+  opacity: 1;
+  pointer-events: auto;
+}                   
+
+button:hover {
+  background: #0d8bd9;
 }
