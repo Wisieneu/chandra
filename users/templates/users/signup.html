@@ -1,5 +1,4 @@
 {% load static %}
-{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,15 +19,6 @@
     <title>Signup Page</title>
   </head>
   <body>
-    <div id="messages-box">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
     <div class="formContent">
       <div class="toplinks">
         <a href="{% url 'login' %}">
@@ -39,9 +29,60 @@
         </a>
       </div>
 
-      <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
+      <form role="form" method="POST" action="./signup.html">
+        <div>
+          <label for="username">Username</label>
+          <div>
+            <input
+              id="username"
+              type="text"
+              class="form-control"
+              name="username"
+              value
+              required
+              autofocus
+            />
+          </div>
+        </div>
+
+        <div class="email">
+          <label class="email" for="email">E-mail</label>
+          <div>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <div>
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              name="password"
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="confirmpassword">Confirm Password</label>
+          <div>
+            <input
+              id="confirmpassword"
+              type="password"
+              class="form-control"
+              name="confirmpassword"
+              required
+            />
+          </div>
+        </div>
 
         <button type="submit" class="" id="signup-button">Signup</button>
       </form>

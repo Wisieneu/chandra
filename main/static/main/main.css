@@ -1,0 +1,230 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* TYPOGRAPHY */
+.sidebarContent {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+}
+.tweet-area {
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+}
+
+button {
+    font-family: "Montserrat", sans-serif;
+}
+
+/* MAIN PAGE */
+body {
+  display: flex;
+  background-color: black;
+}
+/* SIDEBAR */
+
+a > i {
+  margin-right: 0.5em;
+}
+
+.sidebarContent {
+  background-color: rgb(0, 0, 0);
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+nav {
+  text-align: left;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-right: 2em;
+}
+
+a {
+  margin-bottom: 1em;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  line-height: 2rem;
+  text-decoration: none;
+  color: white;
+}
+
+nav > a:nth-child(1) {
+  margin-top: 2em;
+}
+
+nav > a:hover {
+  background-color: hsla(0, 0%, 50%, 0.61);
+}
+
+/* POST BOX */
+
+.page-wrapper {
+  width: 650px;
+  height: 100%;
+  border-right: 2px solid gray;
+  border-left: 2px solid gray;
+}
+
+.wrapper {
+  margin: auto;
+  color: white;
+  width: 600px;
+  flex-shrink: 0;
+  border: 1px solid gray;
+  border-top: none;
+  margin-bottom: 20px;
+  padding: 25px 25px 15px 25px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.border-wrapper {
+  border-bottom: 1px solid gray;
+}
+
+.input-box {
+  padding-top: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.input-box .tweet-area {
+  position: relative;
+  min-height: 130px;
+  max-height: 170px;
+  overflow-y: auto;
+}
+.tweet-area::-webkit-scrollbar {
+  width: 0px;
+}
+.tweet-area .placeholder {
+  position: absolute;
+  margin-top: -3px;
+  font-size: 25px;
+  color: #98a5b1;
+  pointer-events: none;
+}
+.tweet-area .input {
+  outline: none;
+  min-height: inherit;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.tweet-area .editable {
+  position: relative;
+  z-index: 5;
+}
+.tweet-area .readonly {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: transparent;
+  background: transparent;
+}
+.readonly .highlight {
+  background: #fd9bb0;
+}
+
+.input-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.counter {
+  color: #333;
+  display: none;
+  font-weight: 500;
+  margin-right: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #aab8c2;
+}
+button {
+  padding: 9px 18px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  background: #1da1f2;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: background 0.2s ease;
+  margin-bottom: 10px;
+}
