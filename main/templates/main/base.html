@@ -42,9 +42,11 @@
         >
         <a href="#"> <i class="fa-solid fa-bell fa-fw"></i> Notifications</a>
         <a href="#"><i class="fa-solid fa-gear fa-fw"></i> Settings</a>
-        <a href="{% url 'profile-self' %}"
-          ><i class="fa-solid fa-user fa-fw"></i> Profile</a
-        >
+        {% if user.is_authenticated %}
+          <a href="{% url 'profile-self' %}"><i class="fa-solid fa-user fa-fw"></i> Profile</a>
+        {% else %}
+          <a href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket fa-fw"></i> Log In</a>
+        {% endif %}
       </nav>
     </div>
 
