@@ -2,19 +2,32 @@
 {% block content %}
 
 <div class="page-wrapper">
-    <div class="border-wrapper">
-        <div class="wrapper">
-            <div class="input-box">
-              <div class="tweet-area">
-                <span class="placeholder">What's happening?</span>
-                <div class="input editable" contenteditable="true" spellcheck="false"></div>
-                <div class="input readonly" contenteditable="true" spellcheck="false"></div>
-              </div>
-            <div class="input-card-footer">
-                <span class="counter">100</span>
-                <button>Post</button>
+  <div class="border-wrapper">
+      <div class="wrapper">
+          <div class="input-box">
+            <div class="tweet-area">
+              <span class="placeholder">What's happening?</span>
+              <div class="input editable" contenteditable="true" spellcheck="false"></div>
+              <div class="input readonly" contenteditable="true" spellcheck="false"></div>
             </div>
-        </div>
+          <div class="input-card-footer">
+              <span class="counter">100</span>
+              <button>Post</button>
+          </div>
+      </div>
+  </div>
+  {% for post in posts %}
+  <article class="wrapper">
+    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ post.author }}</a>
+        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+      </div>
+      <p class="article-content">{{ post.content }}</p>
     </div>
+  </article>
+
+  {% endfor %}
 </div>
 {% endblock content %}
