@@ -29,61 +29,9 @@
         </a>
       </div>
 
-      <form role="form" method="POST" action="./signup.html">
-        <div>
-          <label for="username">Username</label>
-          <div>
-            <input
-              id="username"
-              type="text"
-              class="form-control"
-              name="username"
-              value
-              required
-              autofocus
-            />
-          </div>
-        </div>
-
-        <div class="email">
-          <label class="email" for="email">E-mail</label>
-          <div>
-            <input
-              id="email"
-              type="email"
-              class="form-control"
-              name="email"
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="password">Password</label>
-          <div>
-            <input
-              id="password"
-              type="password"
-              class="form-control"
-              name="password"
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="confirmpassword">Confirm Password</label>
-          <div>
-            <input
-              id="confirmpassword"
-              type="password"
-              class="form-control"
-              name="confirmpassword"
-              required
-            />
-          </div>
-        </div>
-
+      <form role="form" method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
         <button type="submit" class="" id="signup-button">Signup</button>
       </form>
     </div>
