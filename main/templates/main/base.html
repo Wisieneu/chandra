@@ -50,9 +50,10 @@
       </nav>
     </div>
 
-    <!-- MAIN DIV HERE -->
-    <div class="main-content">{% block content %}{% endblock %}</div>
-    <!-- END DIV HERE -->
+    <!-- All subpages' content will be inside this wrapper div -->
+    <div class="main-content">
+      {% block content %}{% endblock %}
+    </div>
   </body>
 
   <script
