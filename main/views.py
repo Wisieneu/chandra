@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-from users.forms import ProfileUpdateForm
-from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (
@@ -11,17 +9,13 @@ from django.views.generic import (
     DeleteView
 )
 
-
-def index(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'main/index.html', context)
+from users.forms import ProfileUpdateForm
+from .models import Post
 
 
 class PostListView(ListView):
     model = Post
-    template_name = 'main/index.html'
+    template_name = 'main/index.html' # <app>/<model>_viewtype.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
