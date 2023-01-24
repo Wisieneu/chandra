@@ -44,8 +44,10 @@
         <a href="#"><i class="fa-solid fa-gear fa-fw"></i> Settings</a>
         {% if user.is_authenticated %}
           <a href="{% url 'profile-self' %}"><i class="fa-solid fa-user fa-fw"></i> Profile</a>
+          <a href="{% url 'logout' %}"><i class="fa-solid fa-user fa-fw"></i> Logout</a>
         {% else %}
           <a href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket fa-fw"></i> Log In</a>
+          <a href="{% url 'signup' %}"><i class="fa-regular fa-right-to-bracket fa-fw"></i> Sign Up</a>
         {% endif %}
       </nav>
     </div>
