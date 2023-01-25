@@ -1,6 +1,8 @@
 {% extends 'main/base.html' %}
 {% block content %}
 
+
+
 <div class="page-wrapper">
   <div class="border-wrapper">
       <div class="wrapper">
@@ -20,15 +22,15 @@
       </div>
   </div>
   {% for post in posts %}
-  <article class="">
-    <img class="" src="{{ post.author.profile.profile_picture.url }}">
-    <div class="">
-      <div class="">
-        <a class="" href="#">{{ post.author }}</a>
+  <article class="post-wrapper">
+    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}">
+    
+      <div class="name-date">
+        <a class="post-nickname" href="#">{{ post.author }}</a>
         <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
       </div>
-      <p class="">{{ post.content }}</p>
-    </div>
+      <p class="post-content" >{{ post.content }}</p>
+    
   </article>
 
   {% endfor %}

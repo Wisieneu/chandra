@@ -89,7 +89,10 @@ p,
 h1,
 h2,
 h3,
-label {
+label,
+small,
+.m-0>li,
+input {
   color: hsla(0, 0%, 100%, 0.897);
   font-family: "Montserrat", sans-serif;
   font-family: "Orbitron", sans-serif;
@@ -130,7 +133,8 @@ label {
 input#id_password1,
 input#id_username,
 input#id_email,
-input#id_password2 {
+input#id_password2,
+input#id_password {
   border-radius: 5px 5px 5px 5px;
   display: inline-block;
   font-size: 16px;
@@ -182,5 +186,97 @@ button {
 .email {
   margin-top: 2em;
 }
+
+
+/* SIGNUP PAGE STYLES */
+
+small{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: hsl(12, 100%, 50%);
+  text-align: center;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  list-style: none;
+  list-style-type: none;
+}
+
+li::marker {
+  display: none;
+  list-style-type: none;
+}
+
+ul {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+small#hint_id_password1 {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+small#hint_id_password1>ul>li:nth-child(2) {
+  list-style-type: none;
+  max-width: 22em;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+small#hint_id_password2 {
+  list-style-type: none;
+  max-width: 22em;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+small#hint_id_password1>ul>li:nth-child(1),
+small#hint_id_password1>ul>li:nth-child(3),
+small#hint_id_password1>ul>li:nth-child(4)  {
+  display: none;
+  
+  
+  
+}
+
+small#hint_id_username {
+  color: rgb(90, 162, 192);
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 22em;
+
+}
+
+input#id_email {
+  margin-bottom: 1.3rem;
+}
+
+
+/* LOGIN PAGE STYLES */
+
+.m-0>li {
+  list-style-type: none;
+  color: red;
+  text-align: center;
+  max-width: 22em;
+}
+
+
 
 

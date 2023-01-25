@@ -238,3 +238,37 @@ button.active {
 button:hover {
   background: #0d8bd9;
 }
+
+/* POST STYLING */
+
+.post-wrapper>* {
+  color: white;
+
+}
+
+.post-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #aab8c2;
+  margin-bottom: 1.5rem;
+}
+
+.name-date {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.post-username {
+  
+}
+
+.post-image {
+  width: 100px;
+  
+}
+
+.post-content {
+  margin-left: 1em;
+}
