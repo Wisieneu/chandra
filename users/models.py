@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from PIL import Image
 
@@ -24,3 +25,7 @@ class Profile(models.Model):
             output_size = (360, 360)
             img.thumbnail(output_size)
             img.save(self.profile_picture.path)
+    
+    def get_absolute_url(self):
+        return reverse("profile", kwargs={"pk": self.pk})
+    

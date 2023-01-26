@@ -35,9 +35,6 @@ class UserProfileView(DetailView):
     model = Profile
     context_object_name = 'profile'
     template_name = 'users/profile.html'
-    
-    def get_object(self):
-        return get_object_or_404(User, username=Profile.user.username)
 
 class OwnProfileView(LoginRequiredMixin, TemplateView):
     login_url = '/login/'
@@ -45,6 +42,3 @@ class OwnProfileView(LoginRequiredMixin, TemplateView):
     model = Profile
     context_object_name = 'profile'
     template_name = 'users/profile_self.html'
-    
-    # def get(self, request):
-        # return HttpResponseRedirect(self.request.Profile.user.username)
