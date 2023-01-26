@@ -74,6 +74,19 @@ select {
 }
 
 /* TYPOGRAPHY */
+
+
+
+
+.post-content, a.post-nickname, small {
+  
+  font-family: "Montserrat", sans-serif
+}
+
+small {
+  font-size: 0.6em;
+}
+
 .sidebarContent {
   font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
@@ -258,6 +271,7 @@ button:hover {
   flex-direction: column;
   text-align: center;
   margin: 0.5rem;
+  
 }
 
 .post-username {
@@ -271,4 +285,7 @@ button:hover {
 
 .post-content {
   margin-left: 1em;
+  text-align: start;
+  word-wrap: break-word;
+  overflow:auto;
 }
