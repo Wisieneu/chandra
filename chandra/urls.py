@@ -28,7 +28,7 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     # profile URLs
-    path('profile/<str:username>', UserProfileView.as_view(), name='profile'),
+    path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
     path('profile/', OwnProfileView.as_view(), name='profile-self'),
     path('settings/', settings_view, name='settings'),
     # authentication URLs

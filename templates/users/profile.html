@@ -1,12 +1,12 @@
 {% extends 'main/base.html' %}
 {% block content %}
-    {% if user.profile.display_name %}
-        <h2>{{ user.profile.display_name }}</h2>
+    {% if profile.display_name %}
+        <h2>{{ profile.display_name }}</h2>
     {% endif %}
-    <h3>{{ user.profile.user.username }}</h3>
-    {% if user.profile.first_name and user.profile.last_name %}
-        <h3> {{ user.profile.first_name }} {{ user.profile.last_name }}
+    <h3>{{ profile.user.username }}</h3>
+    {% if profile.first_name and profile.last_name %}
+        <h3> {{ profile.first_name }} {{ profile.last_name }}
     {% endif %}
-    <img src='{{ user.profile.profile_picture.url }}'>
+    <img src='{{ profile.profile_picture.url }}'>
     
 {% endblock content %}
