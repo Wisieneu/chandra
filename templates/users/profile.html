@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
 {% block content %}
-
-    <h2>{{ Profile.display_name }}</h2>
-    <h3>{{ user.username }}</h3>
+    {% if user.profile.display_name %}
+        <h2>{{ user.profile.display_name }}</h2>
+    {% endif %}
+    <h3>{{ user.profile.user.username }}</h3>
     {% if user.profile.first_name and user.profile.last_name %}
         <h3> {{ user.profile.first_name }} {{ user.profile.last_name }}
     {% endif %}
