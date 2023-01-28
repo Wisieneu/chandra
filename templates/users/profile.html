@@ -1,12 +1,46 @@
 {% extends 'main/base.html' %}
-{% block content %}
-    {% if profile.display_name %}
-        <h2>{{ profile.display_name }}</h2>
-    {% endif %}
-    <h3>{{ profile.user.username }}</h3>
-    {% if profile.first_name and profile.last_name %}
-        <h3> {{ profile.first_name }} {{ profile.last_name }}
-    {% endif %}
-    <img src='{{ profile.profile_picture.url }}'>
-    
-{% endblock content %}
+
+
+
+
+
+
+
+    {% block content %}
+    <div class="page-wrapper">
+       <div class="profile-bg"></div>
+    <div class="profile-wrapper">
+     <div class="profile-left-part">
+         
+         
+           <img class ="profile_avatar" src='{{ profile.profile_picture.url }}'>
+         
+           {% if profile.first_name and profile.last_name %}
+             <h3 class="profile_first_name"> {{ profile.first_name }} {{ profile.last_name }}
+                <h3 class="profile_user_username"><span>@</span>{{ profile.user.username }}</h3>
+                <!-- commented out bo nie wiem czy to w ogole potrzebne, a psuje mocno layout -->
+         <!-- {% endif %}
+         {% if profile.display_name %}
+         <h2 class="profile_display_name"> <span class="aka-span">aka  </span>{{ profile.display_name }}</h2>
+         {% endif %} -->
+         <div class="follow-count">
+            <h3 class="following"> 
+                <span class="following-span">250</span>
+                <span class="only-text">FOLLOWING</span>
+            </h3>
+            <h3 class="followers">
+                <span class="followers-span">450</span>
+                <span class="only-text">FOLLOWERS</span>
+            </h3>
+        </div>
+        
+         
+     </div>
+
+     <div class="profile-right-part">
+        <button class="follow-btn">Follow</button>
+     </div>
+      
+  </div>
+</div>
+  {% endblock content %}
