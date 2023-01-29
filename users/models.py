@@ -6,8 +6,6 @@ from PIL import Image
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
     display_name = models.CharField(max_length=32)
     profile_picture = models.ImageField(default='assets/default.jpg', upload_to='profile_pictures')
     slug = models.SlugField(max_length=150, default=user)
