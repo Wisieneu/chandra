@@ -263,6 +263,10 @@ button:hover {
 
 /* POST STYLING */
 
+.invisible:not(img) { 
+  display:none;
+}
+
 .post-wrapper>* {
   color: white;
 
@@ -285,6 +289,7 @@ button:hover {
 
 .post-image {
   width: 100px;
+  vertical-align: top;
   
 }
 

@@ -22,9 +22,9 @@
       </div>
   </div>
   {% for post in posts %}
-  <article class="post-wrapper">
-    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}">
-    
+  <article class="post-wrapper" onclick="location.href=' ';" style="cursor: pointer;">
+
+   <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
       <div class="name-date">
         <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
         <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
