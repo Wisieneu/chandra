@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div>
+    <p>In order to reset your password, please enter the e-mail address associated with your account.</p>
+    <form>
+        {{ form|crispy }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock content %}
