@@ -35,6 +35,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('signup/', signup_view, name='signup'),
     path('logout/', logout_view, name='logout'),
+    path('pwreset/', auth_views.PasswordResetView.as_view(template_name='users/pwreset.html'), name='pwreset'),
 ]
 
 if settings.DEBUG:
