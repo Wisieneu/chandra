@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (
     ListView,
-    DetailView, 
+    DetailView,
     CreateView,
     UpdateView,
     DeleteView
@@ -14,15 +14,23 @@ from users.forms import ProfileUpdateForm
 from .models import Post
 
 
-
 class PostListView(ListView):
     model = Post
-    template_name = 'main/index.html' # <app>/<model>_viewtype.html
+    template_name = 'main/index.html'  # <app>/<model>_viewtype.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
 
-def get_post(request, post_id, *args, **kwargs):
+def get_posts_json(request, *args, **kwargs):
+    posts_qs = Post.objects.all()
+    posts_list = [{'id': post.id,
+                   #    'author_id': post.author.id,
+                   'context': post.content}
+                  for post in posts_qs]
+    return JsonResponse(data={'response': posts_list})
+
+
+def get_post_detail_json(request, post_id, *args, **kwargs):
     '''
     REST API VIEW
     To be consumed by JS
@@ -68,11 +76,11 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
-    
-    
+
+
 class PostDeleteView(DeleteView):
     model = Post
-    
+
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
@@ -82,7 +90,8 @@ class PostDeleteView(DeleteView):
 
 def settings_view(request):
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.Profile)
+        form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.Profile)
         if form.is_valid:
             form.save()
             messages.success(request, 'Your account has been updated.')

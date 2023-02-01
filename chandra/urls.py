@@ -16,13 +16,17 @@ from main.views import (
     PostDetailView,
     PostUpdateView,
     PostDeleteView,
-    settings_view
+    settings_view,
+    get_posts_json,
+    get_post_detail_json,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PostListView.as_view(), name='index'),
     # post URLs
+    path('posts/json/all', get_posts_json, name='all_posts_json'),
+    path('posts/json/<int:pk>', get_post_detail_json, name='post_json'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
@@ -35,8 +39,10 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('signup/', signup_view, name='signup'),
     path('logout/', logout_view, name='logout'),
-    path('pwreset/', auth_views.PasswordResetView.as_view(template_name='users/pwreset.html'), name='pwreset'),
+    path('pwreset/', auth_views.PasswordResetView.as_view(
+        template_name='users/pwreset.html'), name='pwreset'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
