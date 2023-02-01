@@ -1,0 +1,282 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Login Page */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(28, 108, 119, 0.664);
+}
+
+/* Typography */
+
+a,
+p,
+h1,
+h2,
+h3,
+label,
+small,
+.m-0>li,
+input {
+  color: hsla(0, 0%, 100%, 0.897);
+  font-family: "Montserrat", sans-serif;
+  font-family: "Orbitron", sans-serif;
+}
+
+.formContent {
+  width: 25em;
+  text-align: center;
+  margin-bottom: 2em;
+  background-color: #222;
+  padding-top: 4em;
+  padding-bottom: 2em;
+  border-radius: 10px;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.toplinks {
+  margin-bottom: 2em;
+  display: flex;
+  gap: 1em;
+}
+
+.toplinks > a {
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.897);
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+}
+
+.toplinks > a:hover {
+  border-bottom: 1px solid #19a4bd;
+}
+
+input#id_password1,
+input#id_username,
+input#id_email,
+input#id_password2,
+input#id_password {
+  border-radius: 5px 5px 5px 5px;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+  width: 20em;
+  background-color: rgb(121, 120, 120);
+  border: 2px solid #d0d0d0;
+}
+
+button {
+  background-color: #56baed;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  margin: 5px 20px 40px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 50%;
+}
+
+.formFooter > a {
+  text-decoration: none;
+}
+
+.formFooter > a > h2:hover {
+  border-bottom: 1px solid #19a4bd;
+}
+
+.formFooter > a > h2 {
+  font-size: 1rem;
+  border-bottom: 1px solid transparent;
+  line-height: 3em;
+}
+
+.forgotPassword {
+  border-top: 2px solid #d0d0d0;
+}
+
+.email {
+  margin-top: 2em;
+}
+
+
+/* SIGNUP PAGE STYLES */
+
+small{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: hsl(12, 100%, 50%);
+  text-align: center;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  list-style: none;
+  list-style-type: none;
+}
+
+li::marker {
+  display: none;
+  list-style-type: none;
+}
+
+ul {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+small#hint_id_password1 {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+small#hint_id_password1>ul>li:nth-child(2) {
+  list-style-type: none;
+  max-width: 22em;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+small#hint_id_password2 {
+  list-style-type: none;
+  max-width: 22em;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+small#hint_id_password1>ul>li:nth-child(1),
+small#hint_id_password1>ul>li:nth-child(3),
+small#hint_id_password1>ul>li:nth-child(4)  {
+  display: none;
+  
+  
+  
+}
+
+small#hint_id_username {
+  color: rgb(90, 162, 192);
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 22em;
+
+}
+
+input#id_email {
+  margin-bottom: 1.3rem;
+}
+
+
+/* LOGIN PAGE STYLES */
+
+.m-0>li {
+  list-style-type: none;
+  color: red;
+  text-align: center;
+  max-width: 22em;
+}
+
+
+
+

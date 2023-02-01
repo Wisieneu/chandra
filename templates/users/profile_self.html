@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+    <!-- It's supposed to be a regular profile view but with some edit functionality 
+        Just like you can click on your pfp on twitter on your profile page 
+        and change it from there -->
+
+    <h2>{{ user.profile.display_name }}</h2>
+    <h3>{{ user.username }}</h3>
+    {% if user.profile.first_name and user.profile.last_name %}
+        <h3> {{ user.profile.first_name }} {{ user.profile.last_name }}
+    {% endif %}
+    <img src='{{ user.profile.profile_picture.url }}'>
+    
+{% endblock content %}

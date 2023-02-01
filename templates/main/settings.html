@@ -1,0 +1,6 @@
+{% extends 'main/base.html' %}
+<form method='POST' enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{ profile_edit_form }}
+
+</form>

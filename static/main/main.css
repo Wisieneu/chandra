@@ -1,0 +1,395 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  resize:none;
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* TYPOGRAPHY */
+
+
+
+
+.post-content, a.post-nickname, small, .profile-wrapper {
+  
+  font-family: "Montserrat", sans-serif
+}
+
+small {
+  font-size: 0.6em;
+}
+
+.sidebarContent {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+}
+.tweet-area {
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+}
+
+.profile-wrapper {
+  color: white;
+}
+
+button {
+    font-family: "Montserrat", sans-serif;
+}
+
+/* MAIN PAGE */
+body {
+  display: flex;
+  background-color: black;
+}
+/* SIDEBAR */
+
+a > i {
+  margin-right: 0.5em;
+}
+
+.sidebarContent {
+  background-color: rgb(0, 0, 0);
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+nav {
+  text-align: left;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-right: 2em;
+}
+
+a {
+  margin-bottom: 1em;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  line-height: 2rem;
+  text-decoration: none;
+  color: white;
+}
+
+nav > a:nth-child(1) {
+  margin-top: 2em;
+}
+
+nav > a:hover {
+  background-color: hsla(0, 0%, 50%, 0.61);
+}
+
+/* POST BOX */
+
+.page-wrapper {
+  width: 650px;
+  height: 100%;
+  border-right: 2px solid gray;
+  border-left: 2px solid gray;
+}
+
+.wrapper {
+  margin: auto;
+  color: white;
+  width: 600px;
+  flex-shrink: 0;
+  border: 1px solid gray;
+  border-top: none;
+  margin-bottom: 20px;
+  padding: 25px 25px 15px 25px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.border-wrapper {
+  border-bottom: 1px solid gray;
+}
+
+textarea.input {
+  width: 400px;
+}
+
+form {
+  padding-top: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+form .tweet-area {
+  position: relative;
+  min-height: 130px;
+  max-height: 170px;
+  overflow-y: auto;
+}
+.tweet-area::-webkit-scrollbar {
+  width: 0px;
+}
+.tweet-area .placeholder {
+  position: absolute;
+  margin-top: -3px;
+  font-size: 25px;
+  color: #98a5b1;
+  pointer-events: none;
+}
+.tweet-area, textarea.input {
+  outline: none;
+  min-height: inherit;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.tweet-area, textarea.input {
+  position: relative;
+  z-index: 5;
+}
+.tweet-area .readonly {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: transparent;
+  background: transparent;
+}
+.readonly .highlight {
+  background: #fd9bb0;
+}
+
+.input-card-footer {
+  z-index: -2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.counter {
+  color: #333;
+  display: none;
+  font-weight: 500;
+  margin-right: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #aab8c2;
+}
+.post-btn {
+  padding: 9px 18px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  background: #1da1f2;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: background 0.2s ease;
+  margin-bottom: 10px;
+}
+
+button.active {
+  opacity: 1;
+  pointer-events: auto;
+}                   
+
+button:hover {
+  background: #0d8bd9;
+}
+
+/* POST STYLING */
+
+.invisible:not(img) { 
+  display:none;
+}
+
+.post-wrapper>* {
+  color: white;
+
+}
+
+.post-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #aab8c2;
+  margin-bottom: 1.5rem;
+}
+
+.name-date {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0.5rem;
+  
+}
+
+.post-image {
+  width: 100px;
+  vertical-align: top;
+  
+}
+
+.post-content {
+  margin-left: 1em;
+  text-align: start;
+  word-wrap: break-word;
+  overflow:auto;
+}
+
+
+
+
+/* PROFILE SELF */
+
+.profile-bg {
+  background-color: gray;
+  position: absolute;
+  z-index: -1;
+  display: block;
+  width: 648px;
+  height: 120px;
+}
+
+.page-wrapper {
+  width: 650px;
+  height: 100%;
+  border-right: 2px solid gray;
+  border-left: 2px solid gray;
+}
+
+
+
+.profile-wrapper {
+  display: flex;
+  border: 1px solid #aab8c2;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}
+
+
+.profile-left-part>* {
+  margin-left: 70px;
+}
+
+.profile-right-part {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.profile_avatar {
+  width: 150px;
+  margin-bottom: 15px;
+  border: 2px solid white;
+  border-top: none;
+  
+}
+
+.profile_user_username {
+  font-size: 1em;
+  opacity: 50%;
+}
+
+
+
+.follow-count {
+  margin-top: 20px;
+  display: flex;
+  gap: 25px;
+}
+
+.follow-count>* {
+  font-size: 1em;
+}
+
+.following-span, .followers-span {
+  border-bottom: 1px solid gray;
+}
+
+h3.following::after {
+  content: "FOLLOWING";
+  display: block;
+  opacity: 50%;
+}
+h3.followers::after {
+  opacity: 50%;
+  display: block;
+  content: "FOLLOWERS";
+}
+.only-text {
+  display: none;
+}
+
+.follow-btn {
+  margin-top: 160px;
+  margin-right: 70px;
+  width: 100px;
+  text-align: center;
+  height: 45px;
+  border-radius: 20px;
+}
