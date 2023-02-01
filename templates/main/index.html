@@ -21,7 +21,8 @@
           </div>
       </div>
   </div>
-  {% for post in posts %}
+  {% comment %} {% for post in posts %}
+
   <article class="post-wrapper" onclick="location.href=' ';" style="cursor: pointer;">
 
    <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
@@ -33,6 +34,11 @@
     
   </article>
 
-  {% endfor %}
+  {% endfor %} {% endcomment %}
+  <div class='posts-wrapper'>
+    Replace me
+  </div>
 </div>
+{% load static %}
+<script src="{% static '/main/infinite_scroll.js' %} "></script>
 {% endblock content %}
