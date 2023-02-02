@@ -190,6 +190,16 @@ button {
 
 /* SIGNUP PAGE STYLES */
 
+
+
+.alert-success {
+  display:none;
+}
+
+strong {
+  display:none;
+}
+
 small{
   margin-top: 10px;
   margin-bottom: 10px;

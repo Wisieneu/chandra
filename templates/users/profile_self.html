@@ -1,15 +1,32 @@
+
 {% extends 'main/base.html' %}
 {% block content %}
+<div class="page-wrapper">
+  <div class="profile-bg"></div>
+  <div class="profile-wrapper">
+    <div class="profile-left-part">
+      <img class="profile_avatar" src="{{ user.profile.profile_picture.url }}" />
 
-    <!-- It's supposed to be a regular profile view but with some edit functionality 
-        Just like you can click on your pfp on twitter on your profile page 
-        and change it from there -->
+      <h3 class="profile_display_name">{{ user.profile.display_name }}</h3>
+      <h3 class="profile_user_username">
+        <span>@</span>{{ user.username }}
+      </h3>
+      <div class="follow-count">
+        <h3 class="following">
+          <span class="following-span">250</span>
+          <span class="only-text">FOLLOWING</span>
+        </h3>
+        <h3 class="followers">
+          <span class="followers-span">450</span>
+          <span class="only-text">FOLLOWERS</span>
+        </h3>
+      </div>
+    </div>
 
-    <h2>{{ user.profile.display_name }}</h2>
-    <h3>{{ user.username }}</h3>
-    {% if user.profile.first_name and user.profile.last_name %}
-        <h3> {{ user.profile.first_name }} {{ user.profile.last_name }}
-    {% endif %}
-    <img src='{{ user.profile.profile_picture.url }}'>
-    
+    <div class="profile-right-part">
+    <button class="edit-btn">Edit Profile</button>
+      <button class="follow-btn">Follow</button>
+    </div>
+  </div>
+</div>
 {% endblock content %}
