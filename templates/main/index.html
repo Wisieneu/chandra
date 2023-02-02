@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {% block content %}
-
+{% load static %}
 
 
 <div class="page-wrapper">
@@ -17,28 +17,32 @@
             </div>
           <div class="input-card-footer">
             <span class="counter">100</span>
-            </form>
           </div>
       </div>
   </div>
-  {% comment %} {% for post in posts %}
+  <div class="infinite-container">
+    {% for post in posts %}
+    <article class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
 
-  <article class="post-wrapper" onclick="location.href=' ';" style="cursor: pointer;">
-
-   <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
-      <div class="name-date">
-        <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
-        <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
-      </div>
-      <p class="post-content" >{{ post.content }}</p>
-    
-  </article>
-
-  {% endfor %} {% endcomment %}
-  <div class='posts-wrapper'>
-    Replace me
+    <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
+        <div class="name-date">
+          <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
+          <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <p class="post-content" >{{ post.content }}</p>
+      
+    </article>
+    {% endfor %}
   </div>
-</div>
-{% load static %}
-<script src="{% static '/main/infinite_scroll.js' %} "></script>
+  {% if is_paginated %}
+    {% if page_obj.has_next %}
+    <div class="row">
+      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
+    </div>
+    {% endif %}
+  {% endif %}
+<script src="{% static "/main/js/jquery.waypoints.min.js" %}"</script>
+<script src="{% static "/main/js/infinite.min.js" %}"</script>
+<script src="{% static '/main/js/infinite_scroll.js' %} "></script>
+
 {% endblock content %}

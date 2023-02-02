@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -19,34 +20,7 @@ class PostListView(ListView):
     template_name = 'main/index.html'  # <app>/<model>_viewtype.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-
-
-def get_posts_json(request, *args, **kwargs):
-    posts_qs = Post.objects.all()
-    posts_list = [{'id': post.id,
-                   #    'author_id': post.author.id,
-                   'context': post.content}
-                  for post in posts_qs]
-    return JsonResponse(data={'response': posts_list})
-
-
-def get_post_detail_json(request, post_id, *args, **kwargs):
-    '''
-    REST API VIEW
-    To be consumed by JS
-    Returns JSON data of a Post object 
-    '''
-    data = {
-        'id': post_id,
-    }
-    status = 200
-    try:
-        obj = Post.objects.get(id=post_id)
-        data['content'] = obj.content
-    except:
-        data['message'] = 'Not found'
-        status = 404
-    return JsonResponse(datad=data, status=status)
+    paginate_by = 8
 
 
 class PostDetailView(DetailView):
@@ -57,10 +31,17 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'main\components\post_create.html'
     fields = ['content']
+    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        return redirect('index')
+
+    def form_invalid(self, form):
+        return redirect('index')
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
@@ -99,3 +80,37 @@ def settings_view(request):
     else:
         form = ProfileUpdateForm()
     return render(request, 'main/settings.html', {'profile_edit_form': form})
+
+
+'''
+REST API views for JSON posts data - for potential use for later
+
+def get_posts_json(request, *args, **kwargs):
+    posts_qs = Post.objects.all()
+    posts_list = [{'id': post.id,
+                   'author_username': post.author.username,
+                   'author_display_name': post.author.profile.display_name,
+                   'date_posted': post.date_posted,
+                   'content': post.content,
+                   'likes': 12345}
+                  for post in posts_qs]
+    return JsonResponse(data={'response': posts_list})
+
+
+def get_post_detail_json(request, post_id, *args, **kwargs):
+    # REST API VIEW
+    # To be consumed by JS
+    # Returns JSON data of a Post object 
+    data = {
+        'id': post_id,
+    }
+    status = 200
+    try:
+        obj = Post.objects.get(id=post_id)
+        data['id'] = post_id
+        data['content'] = obj.content
+    except:
+        data = 'Not found'
+        status = 404
+    return JsonResponse(datad=data, status=status)
+'''

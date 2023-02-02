@@ -17,16 +17,12 @@ from main.views import (
     PostUpdateView,
     PostDeleteView,
     settings_view,
-    get_posts_json,
-    get_post_detail_json,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PostListView.as_view(), name='index'),
     # post URLs
-    path('posts/json/all', get_posts_json, name='all_posts_json'),
-    path('posts/json/<int:pk>', get_post_detail_json, name='post_json'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
