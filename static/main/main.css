@@ -393,3 +393,14 @@ h3.followers::after {
   height: 45px;
   border-radius: 20px;
 }
+
+.edit-btn {
+
+   margin-top: 160px;
+   margin-right: 70px;
+   width: 100px;
+   text-align: center;
+   height: 45px;
+   border-radius: 20px;
+ 
+}
