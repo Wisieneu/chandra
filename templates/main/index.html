@@ -22,7 +22,7 @@
   </div>
   <div class="infinite-container">
     {% for post in posts %}
-    <article class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
+    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
 
     <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
         <div class="name-date">
@@ -31,18 +31,33 @@
         </div>
         <p class="post-content" >{{ post.content }}</p>
       
-    </article>
+      </div>
     {% endfor %}
   </div>
-  {% if is_paginated %}
-    {% if page_obj.has_next %}
-    <div class="row">
-      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
-    </div>
-    {% endif %}
+  {% if page_obj.has_next %}
+  <div class="row">
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
+  </div>
   {% endif %}
-<script src="{% static "/main/js/jquery.waypoints.min.js" %}"</script>
-<script src="{% static "/main/js/infinite.min.js" %}"</script>
-<script src="{% static '/main/js/infinite_scroll.js' %} "></script>
+  <script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
+  <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static '/main/js/infinite.min.js' %}"></script>
+  <script>
+  var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      handler: function(direction) {
+      
+  },
+  offset: 'bottom-in-view',
+  onBeforePageLoad: function () {
+  $('.spinner-border').show();
+  },
+  onAfterPageLoad: function () {
+  $('.spinner-border').hide();
+  }
+  
+      
+  });
+  </script>
 
 {% endblock content %}
