@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 
 from users.views import (
     UserProfileView,
-    OwnProfileView,
+    profile_redirect,
     logout_view,
     signup_view
 )
@@ -29,14 +29,13 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     # profile URLs
     path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
-    path('profile/', OwnProfileView.as_view(), name='profile-self'),
+    path('profile-self/', profile_redirect, name='profile-self'),
     path('settings/', settings_view, name='settings'),
     # authentication URLs
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('signup/', signup_view, name='signup'),
     path('logout/', logout_view, name='logout'),
-    path('pwreset/', auth_views.PasswordResetView.as_view(
-        template_name='users/pwreset.html'), name='pwreset'),
+    path('pwreset/', auth_views.PasswordResetView.as_view(template_name='users/pwreset.html'), name='pwreset'),
 ]
 
 if settings.DEBUG:
