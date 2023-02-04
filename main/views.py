@@ -31,6 +31,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'main\components\post_create.html'
     fields = ['content']
+    success_message = 'Post %(pk) was created successfully'
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
