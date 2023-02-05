@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (
@@ -69,6 +69,11 @@ class PostDeleteView(DeleteView):
             return True
         return False
 
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+    
 
 def settings_view(request):
     if request.method == 'POST':

@@ -16,6 +16,7 @@ from main.views import (
     PostDetailView,
     PostUpdateView,
     PostDeleteView,
+    LikeView,
     settings_view,
 )
 
@@ -27,6 +28,7 @@ urlpatterns = [
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('like/<int:pk>', LikeView, name='like-post'),
     # profile URLs
     path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
     path('profile-self/', profile_redirect, name='profile-self'),

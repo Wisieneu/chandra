@@ -29,6 +29,10 @@
           <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
         </div>
         <p class="post-content" >{{ post.content }}</p>
+        <form action="{% url 'like-post' post.pk %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" name="post_id" value="{{ post.id }}" class="#">Like</button>
+        </form>
       
       </div>
     {% endfor %}
