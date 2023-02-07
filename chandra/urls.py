@@ -16,19 +16,24 @@ from main.views import (
     PostDetailView,
     PostUpdateView,
     PostDeleteView,
-    LikeView,
+    like_post,
     settings_view,
+    get_posts_json,
+    TestIndex,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PostListView.as_view(), name='index'),
+    path('testindex', TestIndex.as_view(), name='test-index'),
     # post URLs
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('like/<int:pk>', LikeView, name='like-post'),
+    path('like/<int:pk>', like_post, name='like-post'),
+    # post JSON URLs
+    path('json/posts/all', get_posts_json, name='posts-json'),
     # profile URLs
     path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
     path('profile-self/', profile_redirect, name='profile-self'),

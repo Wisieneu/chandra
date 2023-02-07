@@ -69,7 +69,7 @@ class PostDeleteView(DeleteView):
             return True
         return False
 
-def LikeView(request, pk):
+def like_post(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     post.likes.add(request.user)
     return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
@@ -88,17 +88,20 @@ def settings_view(request):
     return render(request, 'main/settings.html', {'profile_edit_form': form})
 
 
-'''
-REST API views for JSON posts data - for potential use for later
+
+# REST API views for JSON posts data - for potential use for later
 
 def get_posts_json(request, *args, **kwargs):
     posts_qs = Post.objects.all()
     posts_list = [{'id': post.id,
-                   'author_username': post.author.username,
-                   'author_display_name': post.author.profile.display_name,
+                   'author': {
+                       'username': post.author.username,
+                       'display_name': post.author.profile.display_name,
+                       'pfp_url': post.author.profile.profile_picture.url,
+                   },
                    'date_posted': post.date_posted,
                    'content': post.content,
-                   'likes': 12345}
+                   'likes_count': post.total_likes()}
                   for post in posts_qs]
     return JsonResponse(data={'response': posts_list})
 
@@ -118,5 +121,9 @@ def get_post_detail_json(request, post_id, *args, **kwargs):
     except:
         data = 'Not found'
         status = 404
-    return JsonResponse(datad=data, status=status)
-'''
+    return JsonResponse(data=data, status=status)
+
+
+class TestIndex(ListView):
+    model = Post
+    template_name = 'main/testindex.html'
