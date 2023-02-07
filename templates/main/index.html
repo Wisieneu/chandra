@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {% block content %}
-
+{% load static %}
 
 
 <div class="page-wrapper">
@@ -17,22 +17,51 @@
             </div>
           <div class="input-card-footer">
             <span class="counter">100</span>
-            </form>
           </div>
       </div>
-  </div>
-  {% for post in posts %}
-  <article class="post-wrapper" onclick="location.href=' ';" style="cursor: pointer;">
+  <div class="infinite-container">
+    {% for post in posts %}
+    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
 
-   <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
-      <div class="name-date">
-        <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
-        <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
+    <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
+        <div class="name-date">
+          <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
+          <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <p class="post-content" >{{ post.content }}</p>
+        <form action="{% url 'like-post' post.pk %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" name="post_id" value="{{ post.id }}" class="#">Like</button>
+        </form>
+      
       </div>
-      <p class="post-content" >{{ post.content }}</p>
-    
-  </article>
-
-  {% endfor %}
+    {% endfor %}
+  </div>
+  {% if page_obj.has_next %}
+  <div class="row">
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
+  </div>
 </div>
+  {% endif %}
+<script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static '/main/js/infinite.min.js' %}"></script>
+<script>
+var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    handler: function(direction) {
+    
+},
+offset: 'bottom-in-view',
+onBeforePageLoad: function () {
+$('.spinner-border').show();
+},
+onAfterPageLoad: function () {
+$('.spinner-border').hide();
+}
+
+    
+});
+</script>
+
 {% endblock content %}

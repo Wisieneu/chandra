@@ -5,13 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.views.generic import (
-    DetailView, 
-    TemplateView, 
+    ListView,
+    TemplateView,
+    RedirectView
 )
 
 from .forms import UserRegisterForm
 from .models import Profile
+from main.models import Post
 
 
 def signup_view(request):
@@ -19,26 +22,41 @@ def signup_view(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f'''Account created successfully. You can now login using these credentials.''')
+            messages.success(
+                request, f'Account created successfully. You can now login using these credentials.')
             return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/signup.html', {'form': form})
 
+@login_required
 def logout_view(request):
     if User.is_authenticated:
         logout(request)
         messages.success(request, f'Logged out successfully.')
     return redirect('index')
 
-class UserProfileView(DetailView):
-    model = Profile
-    context_object_name = 'profile'
-    template_name = 'users/profile.html'
+@login_required
+def profile_redirect(request):
+    slug = request.user.username
+    return redirect(f'/profile/{slug}')
 
-class OwnProfileView(LoginRequiredMixin, TemplateView):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
-    model = Profile
-    context_object_name = 'profile'
-    template_name = 'users/profile_self.html'
+
+class UserProfileView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'users/profile.html'
+    paginate_by = 5
+    
+    def get_queryset(self, *args, **kwargs):    
+        return (
+            super()
+            .get_queryset(*args, **kwargs)
+            .filter(author__profile__slug=self.kwargs['slug'])
+        )
+    
+    def get_context_data(self, **kwargs):
+        author = get_object_or_404(Profile, slug=self.kwargs['slug'])
+        user_posts = Post.objects.filter(author_id=author.user_id)
+        context = {'profile': author, 'user_posts': user_posts}
+        return context

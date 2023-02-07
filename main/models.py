@@ -8,7 +8,11 @@ class Post(models.Model):
     date_posted = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
     image = models.FileField(upload_to='post_images/', blank=True, null=True)
+    likes = models.ManyToManyField(User, related_name='posts')
 
+    def total_likes(self):
+        return self.likes.count()
+    
     def __str__(self) -> str:
         return f'Post by {self.author} on {self.date_posted} - {self.content[0:21]}'
     

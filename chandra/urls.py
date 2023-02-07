@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 
 from users.views import (
     UserProfileView,
-    OwnProfileView,
+    profile_redirect,
     logout_view,
     signup_view
 )
@@ -16,7 +16,8 @@ from main.views import (
     PostDetailView,
     PostUpdateView,
     PostDeleteView,
-    settings_view
+    LikeView,
+    settings_view,
 )
 
 urlpatterns = [
@@ -27,9 +28,10 @@ urlpatterns = [
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('like/<int:pk>', LikeView, name='like-post'),
     # profile URLs
     path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
-    path('profile/', OwnProfileView.as_view(), name='profile-self'),
+    path('profile-self/', profile_redirect, name='profile-self'),
     path('settings/', settings_view, name='settings'),
     # authentication URLs
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
@@ -39,4 +41,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
