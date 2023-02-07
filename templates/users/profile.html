@@ -30,7 +30,7 @@
   </div>
   <div class="infinite-container">
     {% for post in user_posts %}
-    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
+    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer; margin-top: 20px;">
   
     <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
         <div class="name-date">
