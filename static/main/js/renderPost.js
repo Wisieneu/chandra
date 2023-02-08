@@ -1,33 +1,32 @@
+'use strict';
+
 const postsDiv = document.getElementById("infinite-container") // getting the HTMl element
 postsDiv.innerHTML = 'Loading...' // setting the HTML content inside the element 
 
+function changeLikeStatus (postID) {
+    const postLikeXHR = new XMLHttpRequest();
+    postLikeXHR.open('POST', `/like/${postID}`, true);
+    // get the csrf token to be able to make changes in the database
+    const csrf_token = document.cookie.match(/csrftoken=(\w+)/)[1]; 
+    postLikeXHR.setRequestHeader("X-CSRFToken", csrf_token);
+    postLikeXHR.onload = function () {
+        const serverResponse = JSON.parse(postLikeXHR.response)
+        console.log(serverResponse)
+        const postDiv = document.getElementById(`post-${postID}`)
+        postDiv.querySelector('.like-button-container').innerHTML = `<button class='button-like-post' onclick=changeLikeStatus(${postID})>${serverResponse.likes_count} Likes</button>`
+    }
+    postLikeXHR.send();
 
-
-const xhr = new XMLHttpRequest();
-const method = 'GET';
-const url = 'json/posts/all';
-const responseType = 'json';
-
-function handleDidLike (postID, currentCount) {
-    console.log(postID, currentCount)
+    // change current like button styling
 }
 
 function likeButton (post) {
-    return `<button class='buttonlikejakisidk' onclick=handleDidLike(${post.id},${post.likes_count})>Like</button>`
+    return `<button class='button-like-post' onclick=changeLikeStatus(${post.id})>${post.likes_count} Likes</button>`
 }
 
 
 function formatPost (post) {
-    authorRef = (post.author.username == post.author.display_name) ? `@${post.author.username}` : authorRef = `${post.author.display_name} <span id='greyed-out-tag-name-span'>@${post.author.username}</span>`
-    
-    // if (post.author.username == post.author.display_name) {
-    //     let authorRef = `@${post.author.username}`
-    // } else {
-    //     let authorRef = `${post.author.display_name} <span id='greyed-out-tag-name-span'>@${post.author.username}</span>`
-    // } WHY DOES THIS NOT WORK??
-
-
-    // onclick="location.href='/post/${post.id}'" paste it back into the first div after likes are done
+    const authorRef = (post.author.username == post.author.display_name) ? `${post.author.username}` : `${post.author.display_name} <span id='greyed-out-tag-name-span'>@${post.author.username}</span>`
     let formattedPost = `<div class="post-wrapper infinite-item" id="post-${post.id}" style="cursor: pointer;">
     <a class="PLACEHOLDER" href="profile/${post.author.username}"><img class="post-image" src="${post.author.pfp_url}"></a>
     <div class="name-date">
@@ -35,13 +34,17 @@ function formatPost (post) {
         <small class="PLACEHOLDER">${post.date_posted}</small>
     </div>
     <p class="post-content" >${post.content}</p>
-    <div class="PLACEHOLDER buttonlikejakisidk">
+    <div class="like-button-container">
         ${likeButton(post)}
     </div>
 </div>`
     return formattedPost
 }
 
+const xhr = new XMLHttpRequest();
+const method = 'GET';
+const url = 'json/posts/all';
+const responseType = 'json';
 
 xhr.responseType = responseType;
 xhr.open(method, url);

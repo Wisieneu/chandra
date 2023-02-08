@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (
@@ -69,11 +71,18 @@ class PostDeleteView(DeleteView):
             return True
         return False
 
+@login_required
 def like_post(request, pk):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
-    
+    post = get_object_or_404(Post, id=pk)
+    if request.user not in post.likes.all():
+        post.likes.add(request.user)
+    else:
+        post.likes.remove(request.user)
+    response = {
+        'likes_count': post.total_likes(),
+        'like_list_users': post.liking_users_list()
+    }
+    return JsonResponse(data=response)
 
 def settings_view(request):
     if request.method == 'POST':
@@ -101,7 +110,8 @@ def get_posts_json(request, *args, **kwargs):
                    },
                    'date_posted': post.date_posted,
                    'content': post.content,
-                   'likes_count': post.total_likes()}
+                   'likes_count': post.total_likes(),
+                   'like_list_users': post.liking_users_list()}
                   for post in posts_qs]
     return JsonResponse(data={'response': posts_list})
 
