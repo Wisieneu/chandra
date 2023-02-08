@@ -13,6 +13,12 @@ class Post(models.Model):
     def total_likes(self):
         return self.likes.count()
     
+    def liking_users_list(self):
+        return [{'username': user.username,
+                 'display_name': user.profile.display_name,
+                 'pfp_url': user.profile.profile_picture.url
+                 } for user in self.likes.all()]
+    
     def __str__(self) -> str:
         return f'Post by {self.author} on {self.date_posted} - {self.content[0:21]}'
     
