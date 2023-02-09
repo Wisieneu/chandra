@@ -1,7 +1,13 @@
 'use strict';
 
+const isAuth = JSON.parse(document.getElementById('isAuth').textContent);
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const closeButton = document.querySelector('.modal-close-button')
 const postsDiv = document.getElementById("infinite-container") // getting the HTMl element
 postsDiv.innerHTML = 'Loading...' // setting the HTML content inside the element 
+
+
 
 function changeLikeStatus (postID) {
     const postLikeXHR = new XMLHttpRequest();
@@ -20,9 +26,27 @@ function changeLikeStatus (postID) {
     // change current like button styling
 }
 
-function likeButton (post) {
-    return `<button class='button-like-post' onclick=changeLikeStatus(${post.id})>${post.likes_count} Likes</button>`
+function showModal() {
+    modal.classList.remove('invisible')
+    overlay.classList.remove('invisible')
+    
 }
+
+function closeModal() {
+    modal.classList.add('invisible')
+    overlay.classList.add('invisible')
+}
+
+
+function likeButton (post, isAuthenticated = isAuth) {
+    if (isAuthenticated) {
+        return `<button class='button-like-post' onclick=changeLikeStatus(${post.id})>${post.likes_count} Likes </button>`
+    } else {
+        return `<button class='button-like-post' onclick=showModal()> ${post.likes_count} Likes </button>`
+    }
+}
+
+
 
 
 function formatPost (post) {
@@ -61,3 +85,4 @@ xhr.onload = function () {
     postsDiv.innerHTML = finalPostStr
 }
 xhr.send()
+
