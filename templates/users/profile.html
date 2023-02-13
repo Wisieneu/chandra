@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %} {% block content %}
+{% extends 'main/base.html' %} {% block content %} {% load static %}
 <div class="page-wrapper">
   <div class="profile-bg"></div>
   <div class="profile-wrapper">
@@ -32,46 +32,14 @@
     {% for post in user_posts %}
     <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer; margin-top: 20px;">
   
-    <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
+    <a class="" href="/profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
         <div class="name-date">
-          <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
+          <a class="post-nickname" href="/profile/{{ post.author.username }}">{{ post.author }}</a>
           <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
         </div>
         <p class="post-content" >{{ post.content }}</p>
-      
       </div>
     {% endfor %}
   </div>
-  {% if page_obj.has_next %}
-  <div class="row">
-    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
-  </div>
-  {% endif %}
 </div>
-
-
-{% load static %}
-<script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
-<script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
-<script src="{% static '/main/js/infinite.min.js' %}"></script>
-<script>
-var infinite = new Waypoint.Infinite({
-    element: $('.infinite-container')[0],
-    handler: function(direction) {
-    
-},
-offset: 'bottom-in-view',
-onBeforePageLoad: function () {
-$('.spinner-border').show();
-},
-onAfterPageLoad: function () {
-$('.spinner-border').hide();
-}
-
-    
-});
-</script>
 {% endblock content %}
-
-
-<!-- koment bo bez niego nie chcialo zcommitowac bo nie widzialo zmian?????????? -->

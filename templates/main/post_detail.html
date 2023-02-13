@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %} {% block content %}
+{% extends 'main/base.html' %} {% block content %} {% load static %} 
 
 <div class="wrapper">
   <img
@@ -13,5 +13,26 @@
     <p class="article-content">{{ post.content }}</p>
   </div>
 </div>
-
+<div class="comment-wrapper">
+  <form class="" method="POST" action="/post/{{post.id}}/addcomment">
+    {% csrf_token %}
+    <input type="hidden" value="/" name="next" />
+    <textarea
+      class=""
+      name="content"
+      placeholder="Comment on {{post.author}}'s post"
+    ></textarea>
+    <button class="comment-btn">Post</button>
+  </form>
+</div>
+<div class="comments-wrapper">
+  {% for comment in comments %}
+    <div class="comment">
+      <p style='color: white'>
+        {{ comment.author.profile.profile_picture.url }}  {{ comment.author }} {{comment.date_added}} {{comment.content}}
+      </p>
+    </div>
+  {% endfor %}
+</div>
+<script src="{% static '/main/js/comments.js' %}"></script>
 {% endblock content %}

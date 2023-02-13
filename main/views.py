@@ -10,30 +10,42 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    CreateView
 )
 
+from .forms import CommentForm
 from users.forms import ProfileUpdateForm
-from .models import Post
+from .models import Post, Comment
 
 
 class PostListView(ListView):
     model = Post
     template_name = 'main/index.html'  # <app>/<model>_viewtype.html
     context_object_name = 'posts'
-    ordering = ['-date_posted']
-    paginate_by = 8
+    # ordering = ['-date_posted']
+    # paginate_by = 8
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_user_id'] = self.request.user
+        return context
 
 
 class PostDetailView(DetailView):
     model = Post
-
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.kwargs['pk']
+        context['comments'] = Comment.objects.filter(post=post)
+        return context
+    
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'main\components\post_create.html'
     fields = ['content']
-    success_message = 'Post %(pk) was created successfully'
+    success_message = 'Post  was created successfully'
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
@@ -132,8 +144,20 @@ def get_post_detail_json(request, post_id, *args, **kwargs):
         data = 'Not found'
         status = 404
     return JsonResponse(data=data, status=status)
+        
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    success_message = 'Post was created successfully'
 
-class TestIndex(ListView):
-    model = Post
-    template_name = 'main/testindex.html'
+    def form_valid(self, form, **kwargs):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        return redirect('index')
+
+    def form_invalid(self, form):
+        return redirect(f'/post/{self.kwargs["pk"]}')
