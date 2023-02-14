@@ -77,15 +77,33 @@ select {
 /* TYPOGRAPHY */
 
 
+small.PLACEHOLDER {
+  font-size: 1.07em;
+  font-weight: 100;
+  color: gray;
+}
+
 
 
 .post-content,
 a.post-nickname,
 small,
-.profile-wrapper {
+.profile-wrapper,
+.likes-count {
 
   font-family: "Montserrat", sans-serif
 }
+
+.post-nickname {
+font-weight: bold;
+padding: 0;
+font-size: 1.07em;
+}
+
+#greyed-out-tag-name-span {
+  color: gray;
+}
+
 
 small {
   font-size: 0.6em;
@@ -272,6 +290,16 @@ button.active {
 
 /* POST STYLING */
 
+
+.likes-count {
+  margin-left: 5px;
+
+}
+
+.main-page-post-wrapper {
+  display: flex;
+}
+
 .invisible:not(img) {
   display: none;
 }
@@ -281,29 +309,35 @@ button.active {
 
 }
 
-.post-wrapper {
+.like-button-container {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+
+
+.button-like-post {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+
+.post-wrapper {
   border: 1px solid #aab8c2;
   margin-bottom: 1.5rem;
 }
 
-.name-date {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 0.5rem;
-
-}
-
 .post-image {
-  width: 100px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
   vertical-align: top;
 
 }
 
 .post-content {
-  margin-left: 1em;
   text-align: start;
   word-wrap: break-word;
   overflow: auto;
@@ -673,3 +707,4 @@ h3.followers::after {
 .comment-date {
   color: gray;
 }
+

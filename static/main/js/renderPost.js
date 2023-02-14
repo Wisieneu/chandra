@@ -19,7 +19,7 @@ function changeLikeStatus (postID) {
         const serverResponse = JSON.parse(postLikeXHR.response)
         console.log(serverResponse)
         const postDiv = document.getElementById(`post-${postID}`)
-        postDiv.querySelector('.like-button-container').innerHTML = `<button class='button-like-post' onclick=changeLikeStatus(${postID})>${serverResponse.likes_count} Likes</button>`
+        postDiv.querySelector('.like-button-container').innerHTML = `<i class='button-like-post fa-regular fa-heart' onclick=changeLikeStatus(${postID})></i> <span class="likes-count">${serverResponse.likes_count}</span>`
 
     }
     postLikeXHR.send();
@@ -41,9 +41,9 @@ function closeModal() {
 
 function likeButton (post, isAuthenticated = isAuth) {
     if (isAuthenticated) {
-        return `<button class='button-like-post' onclick=changeLikeStatus(${post.id})>${post.likes_count} Likes </button>`
+        return `<i class='button-like-post fa-regular fa-heart' onclick=changeLikeStatus(${post.id})></i> <span class="likes-count">${post.likes_count}</span>`
     } else {
-        return `<button class='button-like-post' onclick=showModal()> ${post.likes_count} Likes </button>`
+        return `<i class='button-like-post fa-regular fa-heart' onclick=showModal()> </i> <span class="likes-count">${post.likes_count}</span>`
     }
 }
 
@@ -53,17 +53,22 @@ function likeButton (post, isAuthenticated = isAuth) {
 function formatPost (post) {
     const authorRef = (post.author.username == post.author.display_name) ? `${post.author.username}` : `${post.author.display_name} <span id='greyed-out-tag-name-span'>@${post.author.username}</span>`
     let formattedPost = `
-        <div class="post-wrapper infinite-item" id="post-${post.id}" style="cursor: pointer;" onclick="location.href='/post/${ post.id }';">
-        <a class="PLACEHOLDER" href="profile/${post.author.username}"><img class="post-image" src="${post.author.pfp_url}"></a>
-        <div class="name-date">
-            <a class="post-nickname" href="profile/${post.author.username}">${authorRef}</a>
-            <small class="PLACEHOLDER">${post.date_posted}</small>
+        <div class="post-wrapper infinite-item" id="post-${post.id}">
+
+        <div class="main-page-post-wrapper" style="cursor: pointer;" onclick="location.href='/post/${ post.id }';">
+            <a class="PLACEHOLDER" href="profile/${post.author.username}"><img class="post-image" src="${post.author.pfp_url}"></a>
+            <div class="name-date">
+                <a class="post-nickname" href="profile/${post.author.username}">${authorRef}</a>
+                <small class="PLACEHOLDER">${post.date_posted}</small>
+                <p class="post-content" >${post.content}</p>
+            </div>
+            
         </div>
-        <p class="post-content" >${post.content}</p>
         <div class="like-button-container">
             ${likeButton(post)}
         </div>
         </div>
+        
     `
     return formattedPost
 }
