@@ -91,8 +91,8 @@ def like_post(request, pk):
     else:
         post.likes.remove(request.user)
     response = {
-        'likes_count': post.total_likes(),
-        'like_list_users': post.liking_users_list()
+        'likes_count': post.total_likes,
+        'like_list_users': post.liking_users_list
     }
     return JsonResponse(data=response)
 
@@ -122,8 +122,8 @@ def get_posts_json(request, *args, **kwargs):
                    },
                    'date_posted': post.date_posted,
                    'content': post.content,
-                   'likes_count': post.total_likes(),
-                   'like_list_users': post.liking_users_list()}
+                   'likes_count': post.total_likes,
+                   'like_list_users': post.liking_users_list}
                   for post in posts_qs]
     return JsonResponse(data={'response': posts_list})
 

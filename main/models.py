@@ -10,9 +10,11 @@ class Post(models.Model):
     image = models.FileField(upload_to='post_images/', blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='posts')
 
+    @property
     def total_likes(self):
         return self.likes.count()
     
+    @property
     def liking_users_list(self):
         return [{'username': user.username,
                  'display_name': user.profile.display_name,

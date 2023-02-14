@@ -16,12 +16,12 @@
     <p class="article-content">{{ post.content }}</p>
     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
     <div class="post-detail-likes">
-      <p id="likesDetail">Likes: {{ post.likes_count }}</p>
+      <p id="likesDetail">Likes: {{ post.total_likes }}</p>
     </div>
     <p class="inactive replying-to">Replying to <span class="replying-span">@{{post.author}}</span></p>
     <div class="comment-wrapper">
 
-      <img class="detail-img-comment" src="{{ comment.author.profile.profile_picture.url }}" />
+      <img class="detail-img-comment" src="{{ user.profile.profile_picture.url }}" />
       <form class="comment-form" method="POST" action="/post/{{post.id}}/addcomment">
         {% csrf_token %}
         <input type="hidden" value="/" name="next" />
