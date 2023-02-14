@@ -5,7 +5,6 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const closeButton = document.querySelector('.modal-close-button')
 const postsDiv = document.getElementById("infinite-container") // getting the HTMl element
-postsDiv.innerHTML = 'Loading...' // setting the HTML content inside the element 
 
 
 
@@ -17,14 +16,11 @@ function changeLikeStatus (postID) {
     postLikeXHR.setRequestHeader("X-CSRFToken", csrf_token);
     postLikeXHR.onload = function () {
         const serverResponse = JSON.parse(postLikeXHR.response)
-        console.log(serverResponse)
         const postDiv = document.getElementById(`post-${postID}`)
         postDiv.querySelector('.like-button-container').innerHTML = `<i class='button-like-post fa-regular fa-heart' onclick=changeLikeStatus(${postID})></i> <span class="likes-count">${serverResponse.likes_count}</span>`
 
     }
     postLikeXHR.send();
-
-    // change current like button styling
 }
 
 function showModal() {
