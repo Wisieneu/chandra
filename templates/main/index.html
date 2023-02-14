@@ -5,7 +5,7 @@
     <div class="wrapper">
       <div class="input-box">
         <div class="tweet-area">
-          <form class="" method="POST" action="/post/{{ post.id }}/addcomment">
+          <form class="" method="POST" action="/post/create">
             {% csrf_token %}
             <input type="hidden" value="/" name="next" />
             <textarea
@@ -21,6 +21,9 @@
         </div>
       </div>
       <div id="infinite-container">Replace me</div>
+      <div class="invisible" id="ending-tag">
+        <p>There are no more posts</p>
+      </div>
     </div>
 
     <div class="modal invisible">
@@ -42,7 +45,7 @@
        <a class='modal-anchor' href="{% url 'signup' %}">
          <button class="modal-button" >
          Sign up
-         </button >
+         </button>
        </a>
        </div>
 
@@ -58,7 +61,7 @@
  
   </div>
 </div>
-
+<div id="next-post" class="invisible">12</div>
 <div class="overlay invisible" onclick=closeModal()></div>
 
 
