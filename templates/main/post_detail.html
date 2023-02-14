@@ -1,38 +1,61 @@
-{% extends 'main/base.html' %} {% block content %} {% load static %} 
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<div class="page-wrapper">
+  <div class="wrapper">
+    <div class="author-date-wrapper">
+      <img class="detail-img" src="{{ post.author.profile.profile_picture.url }}" />
 
-<div class="wrapper">
-  <img
-    class=""
-    src="{{ post.author.profile.profile_picture.url }}"
-  />
-  <div class="">
-    <div class="">
-      <a class="mr-2" href="#">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+      <div class="detail-name-wrapper">
+        <a class="mr-2" href="#">{{ post.author }}</a>
+        <h3 class="profile_user_username">
+          <span>@</span>{{ post.author.username }}
+        </h3>
+
+
+      </div>
     </div>
     <p class="article-content">{{ post.content }}</p>
-  </div>
-</div>
-<div class="comment-wrapper">
-  <form class="" method="POST" action="/post/{{post.id}}/addcomment">
-    {% csrf_token %}
-    <input type="hidden" value="/" name="next" />
-    <textarea
-      class=""
-      name="content"
-      placeholder="Comment on {{post.author}}'s post"
-    ></textarea>
-    <button class="comment-btn">Post</button>
-  </form>
-</div>
-<div class="comments-wrapper">
-  {% for comment in comments %}
-    <div class="comment">
-      <p style='color: white'>
-        {{ comment.author.profile.profile_picture.url }}  {{ comment.author }} {{comment.date_added}} {{comment.content}}
-      </p>
+    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+    <div class="post-detail-likes">
+      <p id="likesDetail">Likes: {{ post.likes_count }}</p>
     </div>
-  {% endfor %}
+    <p class="inactive replying-to">Replying to <span class="replying-span">@{{post.author}}</span></p>
+    <div class="comment-wrapper">
+
+      <img class="detail-img-comment" src="{{ comment.author.profile.profile_picture.url }}" />
+      <form class="comment-form" method="POST" action="/post/{{post.id}}/addcomment">
+        {% csrf_token %}
+        <input type="hidden" value="/" name="next" />
+        <textarea class="comment-textarea" name="content" placeholder="Comment on {{post.author}}'s post"
+          required></textarea>
+        <button class="comment-btn-inactive comment-btn-active">Post</button>
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="comments-wrapper">
+    {% for comment in comments %}
+    <div class="comment">
+
+
+
+      <img class="detail-img-comment" src="{{ comment.author.profile.profile_picture.url }}" />
+      <div class="wrapper-img-author-date">
+
+        <p class="comment-author">{{ comment.author }} <span class="comment-date">{{comment.date_added}}</span></p>
+        <p class="comment-content">{{comment.content}}</p>
+
+
+
+      </div>
+
+
+    </div>
+    {% endfor %}
+  </div>
 </div>
 <script src="{% static '/main/js/comments.js' %}"></script>
 {% endblock content %}
