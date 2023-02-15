@@ -16,7 +16,7 @@
     <p class="article-content">{{ post.content }}</p>
     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
     <div class="post-detail-likes">
-      <p id="likesDetail">Likes: {{ post.total_likes }}</p>
+      <p id="likesDetail">Likes: {{ post.likes_amount }}</p>
     </div>
     <p class="inactive replying-to">Replying to <span class="replying-span">@{{post.author}}</span></p>
     <div class="comment-wrapper">

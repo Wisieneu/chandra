@@ -11,12 +11,15 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='posts')
 
     @property
-    def total_likes(self):
+    def likes_amount(self):
         return self.likes.count()
 
     @property
     def liking_users_list(self):
-        return [user for user in self.likes.all()]
+        return {user.id: {'username': user.username,
+                 'display_name': user.profile.display_name,
+                 'profile_picture': user.profile.profile_picture.url
+                 } for user in self.likes.all()}
 
     @property
     def comments_amount(self):
@@ -30,12 +33,11 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(
-        Post, related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(
-        User, on_delete=models.SET_DEFAULT, default='Chandra User')
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='Chandra User')
     date_added = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
+    image = models.FileField(upload_to='comment_images/', blank=True, null=True)
     # comment_likes = models.ManyToManyField(User)
 
     def get_absolute_url(self):

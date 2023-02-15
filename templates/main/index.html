@@ -36,10 +36,11 @@
             /></a>
             <div class="name-date">
               <a class="post-nickname" href="profile/{{post.author.username}}">
-                {% if post.author.username == post.author.profile.display_name %} 
-                  {{post.author.username}}
+                {% if post.author.username == post.author.profile.display_name%} 
+                {{post.author.username}} 
                 {% else %}
-                  {{post.author.profile.display_name}} <span id='greyed-out-tag-name-span'>@{{post.author.username}}</span>
+                {{post.author.profile.display_name}}
+                <span id="greyed-out-tag-name-span">@{{post.author.username}}</span>
                 {% endif %}
               </a>
               <small class="PLACEHOLDER">{{post.date_posted}}</small>
@@ -52,16 +53,15 @@
               class="button-like-post fa-regular fa-heart"
               onclick="changeLikeStatus({{post.id}})"
             ></i>
-            <span class="likes-count">{{post.total_likes}}</span>
+            <span class="likes-count">{{post.likes_amount}}</span>
             {% else %}
             <i
               class="button-like-post fa-regular fa-heart"
               onclick="showModal()"
             >
             </i>
-            <span class="likes-count">{{post.total_likes}}</span>
+            <span class="likes-count">{{post.likes_amount}}</span>
             {% endif %}
-            {% comment %} {% if user in post.liking_users_list %} {% endcomment %}
           </div>
         </div>
         {% endfor %}
@@ -72,7 +72,7 @@
         <a
           class="infinite-more-link"
           href="?page={{ page_obj.next_page_number }}"
-        />
+        ></a>
 
         {% endif %} {% endif %}
       </div>
@@ -114,7 +114,7 @@
   </div>
   <div class="overlay invisible" onclick="closeModal()"></div>
 
-  <script src="{% static 'like-comment-btn.js' %}"></script>
+  <script src="{% static '/main/js/like-comment-btn.js' %}"></script>
   <script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
   <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
   <script src="{% static '/main/js/infinite.min.js' %}"></script>

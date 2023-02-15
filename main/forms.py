@@ -19,7 +19,7 @@ class PostCreateForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['content']
+        fields = ['content', 'image']
     
     def clean_content(self):
         content = self.cleaned_data.get('content')
