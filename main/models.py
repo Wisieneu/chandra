@@ -13,31 +13,33 @@ class Post(models.Model):
     @property
     def total_likes(self):
         return self.likes.count()
-    
+
     @property
     def liking_users_list(self):
-        return [{'username': user.username,
-                 'display_name': user.profile.display_name,
-                 'pfp_url': user.profile.profile_picture.url
-                 } for user in self.likes.all()]
-    
+        return [user for user in self.likes.all()]
+
+    @property
+    def comments_amount(self):
+        return self.comments.count()
+
     def __str__(self) -> str:
         return f'Post by {self.author.profile} on {self.date_posted}'
-    
+
     def get_absolute_url(self):
-        return reverse("post-detail", kwargs={"pk": self.pk}) 
+        return reverse("post-detail", kwargs={"pk": self.pk})
+
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='Chandra User')
+    post = models.ForeignKey(
+        Post, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.SET_DEFAULT, default='Chandra User')
     date_added = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
     # comment_likes = models.ManyToManyField(User)
-    
+
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"pk": self.post.id})
-    
-    
+
     def __str__(self):
         return f'{self.post} => comment by {self.author.profile} on {self.date_added}'
-    
