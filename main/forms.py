@@ -8,7 +8,7 @@ MAX_COMMENT_LENGTH = 280
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content']
+        fields = ['content', 'image']
         
     def clean_content(self):
         content = self.cleaned_data.get('content')

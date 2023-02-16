@@ -38,3 +38,19 @@ textArea.addEventListener('input', autoResize, false);
         textArea.value = textArea.value.slice(0, 100);
       }
     });
+
+function changeCommentLikeStatus(commentID) {
+  const commentLikeXHR = new XMLHttpRequest();
+  commentLikeXHR.open("POST", `/likecomment/${commentID}`, true);
+  // get the csrf token to be able to make changes in the database
+  const csrf_token = document.cookie.match(/csrftoken=(\w+)/)[1];
+  commentLikeXHR.setRequestHeader("X-CSRFToken", csrf_token);
+  commentLikeXHR.onload = function () {
+    const serverResponse = JSON.parse(commentLikeXHR.response);
+    const commentDiv = document.getElementById(`comment-${commentID}`);
+    commentDiv.querySelector(
+      ".like-button-container"
+    ).innerHTML = `<i class="button-like-comment fa-regular fa-heart" onclick="changeCommentLikeStatus(${commentID})></i> <span class="likes-count">${serverResponse.likes_amount}</span>`;
+  };
+  commentLikeXHR.send();
+}

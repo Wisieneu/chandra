@@ -6,7 +6,6 @@
         class="detail-img"
         src="{{ post.author.profile.profile_picture.url }}"
       />
-
       <div class="detail-name-wrapper">
         <a class="mr-2" href="#">{{ post.author }}</a>
         <h3 class="profile_user_username">
@@ -52,7 +51,7 @@
 
   <div class="comments-wrapper infinite-container">
     {% for comment in comments %}
-    <div class="comment infinite-item">
+    <div class="comment infinite-item" id="comment-{{ comment.id }}">
       <img
         class="detail-img-comment"
         src="{{ comment.author.profile.profile_picture.url }}"
@@ -66,14 +65,14 @@
       </div>
       <div class="like-button-container">
         <i
-          class="button-like-post fa-regular fa-heart"
+          class="button-like-comment fa-regular fa-heart"
           {% if user.is_authenticated %}
-          onclick="changeLikeStatus({{post.id}})"
+          onclick="changeCommentLikeStatus({{comment.id}})"
           {% else %}
           onclick="showModal()"
           {% endif %}
         ></i>
-        <span class="interactions-count">{{post.likes_amount}}</span>
+        <span class="interactions-count">{{comment.likes_amount}}</span>
       </div>
     </div>
     {% endfor %}
@@ -86,11 +85,10 @@
     href="?page={{ page_obj.next_page_number }}"
   ></a>
 </div>
-{% endif %} {% endif %}
-{{ user.is_authenticated|json_script:"isAuth" }}
-<script src="{% static '/main/js/comments.js' %}"></script>
+{% endif %} {% endif %} {{ user.is_authenticated|json_script:"isAuth" }}
 <script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
 <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static '/main/js/infinite.min.js' %}"></script>
 <script src="{% static '/main/js/infiniteScroll.js' %}"></script>
+<script src="{% static '/main/js/comments.js' %}"></script>
 {% endblock content %}

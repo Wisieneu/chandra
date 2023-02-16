@@ -44,9 +44,10 @@ def profile_redirect(request):
 
 class UserProfileView(ListView):
     model = Post
-    context_object_name = 'posts'
+    context_object_name = 'user_posts'
     template_name = 'users/profile.html'
     paginate_by = 5
+    ordering = ['-date_posted']
     
     def get_queryset(self, *args, **kwargs):    
         return (
@@ -56,7 +57,6 @@ class UserProfileView(ListView):
         )
     
     def get_context_data(self, **kwargs):
-        author = get_object_or_404(Profile, slug=self.kwargs['slug'])
-        user_posts = Post.objects.filter(author_id=author.user_id)
-        context = {'profile': author, 'user_posts': user_posts}
+        context = super().get_context_data()
+        context['profile'] = get_object_or_404(Profile, slug=self.kwargs['slug'])
         return context

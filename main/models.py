@@ -7,7 +7,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
-    image = models.FileField(upload_to='post_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='posts')
 
     @property
@@ -37,11 +37,22 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='Chandra User')
     date_added = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
-    image = models.FileField(upload_to='comment_images/', blank=True, null=True)
-    # comment_likes = models.ManyToManyField(User)
+    image = models.ImageField(upload_to='comment_images/', blank=True, null=True)
+    likes = models.ManyToManyField(User, related_name='comments_likes')
+
+    @property
+    def likes_amount(self):
+        return self.likes.count()
+
+    @property
+    def liking_users_list(self):
+        return {user.id: {'username': user.username,
+                 'display_name': user.profile.display_name,
+                 'profile_picture': user.profile.profile_picture.url
+                 } for user in self.likes.all()}
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"pk": self.post.id})
 
     def __str__(self):
-        return f'{self.post} => comment by {self.author.profile} on {self.date_added}'
+        return f'{self.post} => comment by {self.author.profile} on {self.date_added}: {self.content}'

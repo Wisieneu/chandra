@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (
@@ -14,12 +14,12 @@ from django.views.generic import (
     CreateView
 )
 
-from .forms import CommentForm
+from .forms import CommentForm, PostCreateForm
 from users.forms import ProfileUpdateForm
-from .models import Post, Comment
+from main.models import Post, Comment
 
 
-class PostListView(ListView):
+class IndexView(ListView):
     model = Post
     template_name = 'main/index.html'  # <app>/<model>_viewtype.html
     context_object_name = 'posts'
@@ -32,21 +32,26 @@ class PostListView(ListView):
         return context
 
 
-class PostDetailView(DetailView):
-    model = Post
+class PostDetailView(ListView):
+    ordering = ['-date_added']
+    model = Comment
+    context_object_name = 'comments'
+    template_name = 'main/post_detail.html'
+    paginate_by = 8
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post = self.kwargs['pk']
-        context['comments'] = Comment.objects.filter(post=post)
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(post__id=self.kwargs['post_id'])
+    
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['post'] = get_object_or_404(Post, id=self.kwargs['post_id'])
         return context
     
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'main\components\post_create.html'
-    fields = ['content']
+    form_class = PostCreateForm
     success_message = 'Post  was created successfully'
-    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -93,6 +98,21 @@ def like_post(request, pk):
     response = {
         'likes_amount': post.likes_amount,
         'liking_users_list': post.liking_users_list
+    }
+    return JsonResponse(data=response)
+
+@login_required
+def like_comment(request, comment_id):
+    if request.method != 'POST':
+        return redirect('/')
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.user not in comment.likes.all():
+        comment.likes.add(request.user)
+    else:
+        comment.likes.remove(request.user)
+    response = {
+        'likes_amount': comment.likes_amount,
+        'liking_users_list': comment.liking_users_list
     }
     return JsonResponse(data=response)
 
