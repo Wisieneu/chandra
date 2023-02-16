@@ -29,7 +29,7 @@ class Post(models.Model):
         return f'Post by {self.author.profile} on {self.date_posted}'
 
     def get_absolute_url(self):
-        return reverse("post-detail", kwargs={"pk": self.pk})
+        return reverse("post-detail", kwargs={"post_id": self.pk})
 
 
 class Comment(models.Model):
@@ -50,9 +50,14 @@ class Comment(models.Model):
                  'display_name': user.profile.display_name,
                  'profile_picture': user.profile.profile_picture.url
                  } for user in self.likes.all()}
+    
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
     def get_absolute_url(self):
-        return reverse("post-detail", kwargs={"pk": self.post.id})
+        return reverse("post-detail", kwargs={"post_id": self.post.id})
 
     def __str__(self):
         return f'{self.post} => comment by {self.author.profile} on {self.date_added}: {self.content}'

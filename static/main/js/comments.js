@@ -50,7 +50,7 @@ function changeCommentLikeStatus(commentID) {
     const commentDiv = document.getElementById(`comment-${commentID}`);
     commentDiv.querySelector(
       ".like-button-container"
-    ).innerHTML = `<i class="button-like-comment fa-regular fa-heart" onclick="changeCommentLikeStatus(${commentID})></i> <span class="likes-count">${serverResponse.likes_amount}</span>`;
+    ).innerHTML = `<i class="button-like-comment fa-regular fa-heart" onclick="changeCommentLikeStatus(${commentID})"></i> <span class="likes-count">${serverResponse.likes_amount}</span>`;
   };
   commentLikeXHR.send();
 }

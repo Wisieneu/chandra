@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404, HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.views.generic.edit import ModelFormMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -19,33 +20,67 @@ from users.forms import ProfileUpdateForm
 from main.models import Post, Comment
 
 
-class IndexView(ListView):
+class IndexView(ListView, ModelFormMixin):
     model = Post
-    template_name = 'main/index.html'  # <app>/<model>_viewtype.html
+    template_name = 'main/index.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 8
-    
+    form_class = PostCreateForm
+        
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_user_id'] = self.request.user
-        return context
+        self.object = None
+        return super().get_context_data(**kwargs)
+       
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def post(self, *args, **kwargs):
+        self.object = None
+        if not self.request.user.is_authenticated:
+            raise BaseException()
+        self.form = self.get_form(self.form_class)
+        if self.form.is_valid():
+            post_instance = self.form.save(commit=False)
+            post_instance.author = self.request.user
+            post_instance.save()
+            return HttpResponseRedirect(post_instance.get_absolute_url())
+            
 
-
-class PostDetailView(ListView):
+class PostDetailView(ListView, ModelFormMixin):
     ordering = ['-date_added']
     model = Comment
     context_object_name = 'comments'
     template_name = 'main/post_detail.html'
     paginate_by = 8
+    form_class = CommentForm
     
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(post__id=self.kwargs['post_id'])
     
     def get_context_data(self):
+        self.object = None
         context = super().get_context_data()
         context['post'] = get_object_or_404(Post, id=self.kwargs['post_id'])
         return context
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def post(self, *args, **kwargs):
+        self.object = None
+        if not self.request.user.is_authenticated:
+            raise BaseException()
+        self.form = self.get_form(self.form_class)
+        if self.form.is_valid():
+            comment_instance = self.form.save(commit=False)
+            comment_instance.author = self.request.user
+            comment_instance.post = Post.objects.filter(id=self.kwargs['post_id']).first()
+            print(self.kwargs['post_id'])
+            comment_instance.save()
+            return HttpResponseRedirect(comment_instance.get_absolute_url())
     
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -57,8 +92,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-    def get(self, request, *args, **kwargs):
-        return redirect('index')
+    # def get(self, request, *args, **kwargs):
+    #     return redirect('index')
 
     def form_invalid(self, form):
         return redirect('index')

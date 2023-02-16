@@ -1,19 +1,14 @@
-{% extends 'main/base.html' %} {% block content %} {% load static %}
+{% extends 'main/base.html' %} {% block content %} {% load static %} {% load crispy_forms_tags %}
 
 <div class="page-wrapper">
   <div class="border-wrapper">
     <div class="wrapper">
       <div class="input-box">
         <div class="tweet-area">
-          <form class="" method="POST" action="/post/create">
+          <form id="create-post-form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="hidden" value="/" name="next" />
-            <textarea
-              class=""
-              name="content"
-              placeholder="What's happening?"
-            ></textarea>
-            <button class="post-btn">Post</button>
+            {{ form|crispy }}
+            <button class="post-create-btn">Post</button>
           </form>
         </div>
         <div class="input-card-footer">
