@@ -11,7 +11,7 @@ from users.views import (
     signup_view
 )
 from main.views import (
-    PostListView,
+    IndexView,
     PostCreateView,
     PostDetailView,
     PostUpdateView,
@@ -24,7 +24,7 @@ from main.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', PostListView.as_view(), name='index'),
+    path('', IndexView.as_view(), name='index'),
     # post URLs
     path('post/create', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
