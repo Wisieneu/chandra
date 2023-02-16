@@ -30,16 +30,109 @@
   </div>
   <div class="infinite-container">
     {% for post in user_posts %}
-    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer; margin-top: 20px;">
-  
-    <a class="" href="/profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
+    <div class="post-wrapper infinite-item" id="post-{{post.id}}">
+      <div
+        class="main-page-post-wrapper"
+        style="cursor: pointer"
+        onclick="location.href='/post/{{ post.id }}';"
+      >
+        <a class="PLACEHOLDER" href="profile/{{post.author.username}}"
+          ><img
+            class="post-image"
+            src="{{post.author.profile.profile_picture.url}}"
+        /></a>
         <div class="name-date">
-          <a class="post-nickname" href="/profile/{{ post.author.username }}">{{ post.author }}</a>
-          <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
+          <a class="post-nickname" href="profile/{{post.author.username}}">
+            {% if post.author.username == post.author.profile.display_name%} 
+            {{post.author.username}} 
+            {% else %}
+            {{post.author.profile.display_name}}
+            <span id="greyed-out-tag-name-span">@{{post.author.username}}</span>
+            {% endif %}
+          </a>
+          <small class="PLACEHOLDER">{{post.date_posted}}</small>
+          <p class="post-content">{{post.content}}</p>
         </div>
-        <p class="post-content" >{{ post.content }}</p>
+        {% if post.image %}
+        <div class="post-image-containerMOZESZTOZMIENIC">
+          <img src="{{ post.image.url }}" class="post-image-attachment">
+        </div>
+        {% endif %}
       </div>
+      <div class="post-footer">
+        <div class="like-button-container">
+          <i
+            class="button-like-post fa-regular fa-heart"
+            {% if user.is_authenticated %}
+            onclick="changeLikeStatus({{post.id}})"
+            {% else %}
+            onclick="showModal()"
+            {% endif %}
+          ></i>
+          <span class="interactions-count">{{post.likes_amount}}</span>
+        </div>
+        <a href={% url 'post-detail' post.id %}  
+          <i
+            class="button-like-post fa-regular fa-heart"
+          ></i><span class="interactions-count">{{post.comments_amount}}</span>
+        </a>
+      </div>
+    </div>
     {% endfor %}
   </div>
+
+  {% if is_paginated %} {% if page_obj.has_next %}
+  <div class="row">
+    <a
+      class="infinite-more-link"
+      href="?page={{ page_obj.next_page_number }}"
+    ></a>
+
+    {% endif %} {% endif %}
+  </div>
+
+  <div class="modal invisible">
+    <div class="modal-close-button" onclick="closeModal()">
+      <i class="fa-solid fa-x fa-fw"></i>
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="70"
+      height="70"
+      fill="currentColor"
+      class="bi bi-bookmark-heart"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"
+      />
+      <path
+        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"
+      />
+    </svg>
+
+    <p>You're not logged in, please select one of the options below!</p>
+
+    <a class="modal-anchor" href="{% url 'login' %}">
+      <button class="modal-button">Log in</button>
+    </a>
+
+    <a class="modal-anchor" href="{% url 'signup' %}">
+      <button class="modal-button">Sign up</button>
+    </a>
+  </div>
+
+  {{ user.is_authenticated|json_script:"isAuth" }}
+</div>
+</div>
+<div class="overlay invisible" onclick="closeModal()"></div>
+
+<script src="{% static '/main/js/like-comment-btn.js' %}"></script>
+<script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static '/main/js/infinite.min.js' %}"></script>
+<script src="{% static '/main/js/infiniteScroll.js' %}"></script>
+
 </div>
 {% endblock content %}
