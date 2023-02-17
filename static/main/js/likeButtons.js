@@ -30,7 +30,7 @@ function changePostLikeStatus(postID) {
     const postDiv = document.getElementById(`post-${postID}`);
     postDiv.querySelector(
       ".like-button-container"
-    ).innerHTML = `<i class='button-like-post fa-regular fa-heart' onclick=changeLikeStatus(${postID})></i> <span class="likes-count">${serverResponse.likes_amount}</span>`;
+    ).innerHTML = `<i class='button-like-post fa-regular fa-heart' onclick=changePostLikeStatus(${postID})></i> <span class="likes-count">${serverResponse.likes_amount}</span>`;
   };
   postLikeXHR.send();
 }
