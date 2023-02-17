@@ -309,9 +309,9 @@ button.active {
 
 }
 
-.like-button-container {
+.interactions-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 5px;
 }
 
@@ -453,13 +453,18 @@ h3.followers::after {
 
 /* MODAL */
 
+.modal-wrapper {
+  position: fixed;
+  z-index: 101;
+  margin: 0 auto;
+}
 
 .invisible {
   display: none;
 }
 
 
-.modal {
+.modal-not-logged-in {
   border: 5px solid #0d8bd9;
   position: fixed;
   font-family: "Montserrat", sans-serif;

@@ -59,14 +59,15 @@
         {% endif %}
       </nav>
     </div>
-
-    <!-- All subpages' content will be inside this wrapper div -->
     <div class="main-content">{% block content %}{% endblock %}</div>
     {% if not user.is_authenticated %}
-    <div class="modal invisible">
-      {% include 'main/components/not-logged-in-modal.html' %}
-    </div>
+
+      <div class="modal-wrapper">
+        {% include 'main/components/not-logged-in-modal.html' %}
+      </div>
+
     {% endif %}
+    <script src="{% static '/main/js/likeButtons.js' %}"></script>
   </body>
 
   <script
