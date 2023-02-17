@@ -8,15 +8,11 @@ const closeButton = document.querySelector(".modal-close-button");
 function showModal() {
   modal.classList.remove("invisible");
   overlay.classList.remove("invisible");
-  console.log(modal)
-  console.log(overlay)
 }
 
 function closeModal() {
   modal.classList.add("invisible");
   overlay.classList.add("invisible");
-  console.log(modal)
-  console.log(overlay)
 }
 
 function changePostLikeStatus(postID) {
