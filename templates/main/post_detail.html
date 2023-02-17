@@ -23,6 +23,9 @@
     <div class="post-footer">
       <p id="likesDetail">Likes: {{ post.likes_amount }}</p>
     </div>
+    <!-- move this to top right of the post container -->
+    {% include "main/components/post-delete-confirm-modal.html" %}
+    {% include "main/components/post-edit-modal.html" %}
     <p class="inactive replying-to">
       Replying to <span class="replying-span">@{{post.author}}</span>
     </p>
@@ -53,7 +56,7 @@
         <p class="comment-content">{{comment.content}}</p>
       </div>
       {% if comment.image %}
-      <div class="post-image-containerMOZESZTOZMIENIC">
+      <div class="post-image-container">
         <img src="{{ comment.image_url|default_if_none:'' }}" class="comment-image-attachment">
       </div>
       {% endif %}

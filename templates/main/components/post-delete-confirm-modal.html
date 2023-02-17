@@ -1,0 +1,5 @@
+<div class="modal-delete-confirm">
+    <form method="POST" action={% url "post-delete" post.id %}>
+        {% csrf_token %}<input type="submit" value="DELETE">
+    </form>
+</div>

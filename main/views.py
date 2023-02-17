@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404, HttpResponseForbidden
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic import (
@@ -82,27 +82,14 @@ class PostDetailView(ListView, ModelFormMixin):
             comment_instance.save()
             return HttpResponseRedirect(comment_instance.get_absolute_url())
     
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    template_name = 'main\components\post_create.html'
-    form_class = PostCreateForm
-    success_message = 'Post  was created successfully'
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    # def get(self, request, *args, **kwargs):
-    #     return redirect('index')
-
-    def form_invalid(self, form):
-        return redirect('index')
-
-
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['content']
 
+    def post(self, *args, **kwargs):
+        post = get_object_or_404(Post, id=self.kwargs['post_id'])
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -114,9 +101,14 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         return False
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
 
+    def post(self, request, *args, **kwargs): 
+        self.object = self.get_object() 
+        self.object.delete() 
+        return redirect(self.get_success_url())
+    
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
