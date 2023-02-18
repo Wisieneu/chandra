@@ -8,7 +8,7 @@ class Post(models.Model):
     date_posted = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=280)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
-    likes = models.ManyToManyField(User, related_name='posts')
+    likes = models.ManyToManyField(User, related_name='posts', blank=True)
 
     @property
     def likes_amount(self):
@@ -26,7 +26,7 @@ class Post(models.Model):
         return self.comments.count()
 
     def __str__(self) -> str:
-        return f'Post by {self.author.profile} on {self.date_posted}'
+        return f'Post by {self.author.profile} on {self.date_posted}: {self.content}'
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"post_id": self.pk})
