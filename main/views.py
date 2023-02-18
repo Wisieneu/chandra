@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
+from django.forms.models import model_to_dict
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404, HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -86,9 +87,9 @@ class PostDetailView(ListView, ModelFormMixin):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['content']
+    template_name = 'main/components/post-edit.html'
 
-    def post(self, *args, **kwargs):
-        post = get_object_or_404(Post, id=self.kwargs['post_id'])
+    
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -98,16 +99,16 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         if self.request.user == post.author:
             return True
-        return False
+        else:
+            return PermissionDenied
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-
-    def post(self, request, *args, **kwargs): 
-        self.object = self.get_object() 
-        self.object.delete() 
-        return redirect(self.get_success_url())
+    success_url = '/'
+    
+    def get(self, *args, **kwargs):
+        raise PermissionDenied
     
     def test_func(self):
         post = self.get_object()
@@ -131,7 +132,7 @@ def like_post(request, pk):
 @login_required
 def like_comment(request, comment_id):
     if request.method != 'POST':
-        return redirect('/')
+        raise Http404
     comment = get_object_or_404(Comment, id=comment_id)
     if request.user not in comment.likes.all():
         comment.likes.add(request.user)
@@ -179,14 +180,10 @@ def get_post_detail_json(request, post_id, *args, **kwargs):
     # REST API VIEW
     # To be consumed by JS
     # Returns JSON data of a Post object 
-    data = {
-        'id': post_id,
-    }
     status = 200
     try:
         obj = Post.objects.get(id=post_id)
-        data['id'] = post_id
-        data['content'] = obj.content
+        data = model_to_dict(obj)
     except:
         data = 'Not found'
         status = 404

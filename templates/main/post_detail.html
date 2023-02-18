@@ -24,7 +24,7 @@
       <p id="likesDetail">Likes: {{ post.likes_amount }}</p>
     </div>
     <!-- move this to top right of the post container -->
-    {% include "main/components/post-delete-confirm-modal.html" %}
+    {% include "main/components/post-delete-confirm.html" %}
     {% include "main/components/post-edit-modal.html" %}
     <p class="inactive replying-to">
       Replying to <span class="replying-span">@{{post.author}}</span>

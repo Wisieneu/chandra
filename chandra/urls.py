@@ -27,8 +27,8 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     # post URLs
     path('post/<int:post_id>/', PostDetailView.as_view(), name='post-detail'),
-    path('post/edit/<int:post_id>', PostUpdateView.as_view(), name='post-edit'),
-    path('post/delete/<int:post_id>', PostDeleteView.as_view(), name='post-delete'),
+    path('post/edit/<int:pk>', PostUpdateView.as_view(), name='post-edit'),
+    path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),
     path('like/<int:pk>', like_post, name='like-post'),
     path('post/<int:pk>/addcomment', CommentCreateView.as_view(), name='comment-create'),
     path('likecomment/<int:comment_id>', like_comment, name='like-comment'),
