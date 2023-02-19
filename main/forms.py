@@ -7,9 +7,10 @@ MAX_COMMENT_LENGTH = 280
 
 
 class PostCreateForm(forms.ModelForm):
-    content = forms.CharField(max_length=280, required=True, label='', widget=forms.TextInput(
+    content = forms.CharField(max_length=280, required=True, label='', widget=forms.Textarea(
         attrs={'class': 'post-textarea', 'name': 'content', 'placeholder': "What's happening?"}))
-    image = forms.ImageField(required=False, label='')
+    image = forms.ImageField(required=False, label='', widget=forms.FileInput(
+        attrs={'class': 'clearablefileinput form-control-file', "accept":"image/*", "id":"img-input"}))
 
     class Meta:
         model = Post

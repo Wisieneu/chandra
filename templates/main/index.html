@@ -8,6 +8,7 @@
           <form id="create-post-form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
+            <img id="img-preview" src="#" alt="your image" /> 
             <button class="post-create-btn">Post</button>
           </form>
         </div>
@@ -86,6 +87,7 @@
   <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
   <script src="{% static '/main/js/infinite.min.js' %}"></script>
   <script src="{% static '/main/js/infiniteScroll.js' %}"></script>
+  <script src="{% static '/main/js/previewImagePostForm.js' %}"></script>
 
 </div>
 {% endblock content %}
