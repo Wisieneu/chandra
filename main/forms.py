@@ -26,7 +26,8 @@ class PostCreateForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     content = forms.CharField(max_length=280, required=True, label='', widget=forms.Textarea(
         attrs={'class': 'comment-textarea', 'name': 'content', 'placeholder': 'Comment on the post...'}))
-    image = forms.ImageField(required=False, label='')
+    image = forms.ImageField(required=False, label='', widget=forms.FileInput(
+        attrs={'class': 'clearablefileinput form-control-file', "accept":"image/*", "id":"img-input"}))
 
     class Meta:
         model = Comment
