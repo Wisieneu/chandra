@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from django.core.exceptions import PermissionDenied
-from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, Http404, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponseRedirect, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.views.generic.edit import ModelFormMixin
@@ -113,20 +112,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-
-class RepostView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['content', 'reposted_post']
-    template_name = 'main/components/functional-only/share-post.html'
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.reposted_post = Post.objects.filter(id=self.kwargs['pk']).first()
-        return super().form_valid(form)
-    
-    def get(self, *args, **kwargs):
-        raise Http404
-        
 
 @login_required
 def like_post(request, pk):

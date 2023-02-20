@@ -49,26 +49,5 @@ id="post-{{post.id}}"
                 <span class="interactions-count"> {{post.comments_amount}}</span>
             </a>
         </div>
-        <div class="share-btn">
-            <!-- Expandable menu on click with 2 options: 
-            => repost
-            => repost with messsage
-            ==> clicking the second one displays a modal that asks you to enter a repost message and has a 'repost' submit button as well
-            -->
-            <button class="repost-btn"
-            {% if user.is_authenticated %}
-            
-            {% else %}
-            onclick="showModal()"
-            {% endif %}
-            ><i class="fa-solid fa-retweet"></i></button><span class="interactions-count"> {{post.reposts_amount}}</span>
-            <div class="invisible">
-                <form method="POST" action="{% url 'post-repost' post.id %}">
-                    {% csrf_token %}
-                    <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Repost</button>
-                </form>
-                <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Quote Repost</button>
-            </div>
-        </div>
     </div>
 </div>
