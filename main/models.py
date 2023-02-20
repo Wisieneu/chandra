@@ -9,8 +9,6 @@ class Post(models.Model):
     content = models.TextField(max_length=280)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='posts', blank=True)
-    reposts = models.ManyToManyField(User, related_name='reposts', blank=True)
-    # reposted_post = models.ForeignKey('Post', related_name='reposts', null=True, blank=True, on_delete=models.CASCADE)
     
     @property
     def likes_amount(self):
@@ -26,10 +24,6 @@ class Post(models.Model):
     @property
     def comments_amount(self):
         return self.comments.count()
-    
-    @property
-    def reposts_amount(self):
-        return self.reposts.count()
 
     def __str__(self) -> str:
         return f'Post by {self.author.profile} on {self.date_posted}: {self.content}'
