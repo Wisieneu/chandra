@@ -50,20 +50,26 @@
           <div class="post-footer">
             <div class="interactions-container">
               <div class="like-button-container">
-                <i
-                  class="button-like-post fa-regular fa-heart"
-                  {% if user.is_authenticated %}
-                  onclick="changePostLikeStatus({{post.id}})"
-                  {% else %}
-                  onclick="showModal()"
-                  {% endif %}
-                ></i>
-                <span class="interactions-count">{{post.likes_amount}}</span>
+                {% include 'main/components/post-like-button.html' %} <span class="interactions-count">{{post.likes_amount}}</span>
               </div>
-              <a href={% url 'post-detail' post.id %}> 
-                <i class="button-like-post fa-regular fa-comments"></i>
-                <span class="interactions-count"> {{post.comments_amount}}</span>
-              </a>
+              <div class="comment-button-container">
+                <a href={% url 'post-detail' post.id %}> 
+                  <i class="button-like-post fa-regular fa-comments"></i>
+                  <span class="interactions-count"> {{post.comments_amount}}</span>
+                </a>
+              </div>
+              <div class="share-btn">
+                <!-- Expandable menu on click with 2 options: 
+                     repost
+                     repost with messsage
+                          clicking the second one displays a modal that asks you to enter a repost message and has a 'repost' submit button as well
+                -->
+                <button class="repost-btn"><i class="fa-solid fa-retweet"></i></button><span class="interactions-count"> {{post.reposts_amount}}</span>
+                <form method="POST" action="{% url 'post-repost' post.id %}">
+                  <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Repost</button>
+                </form>
+                <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Quote Repost</button>
+              </div>
             </div>
           </div>
         </div>
