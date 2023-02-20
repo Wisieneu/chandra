@@ -8,8 +8,9 @@
           <form id="create-post-form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
-            <img id="img-preview" src="#" alt="your image" /> 
-            <button class="post-create-btn">Post</button>
+            <button class="post-create-btn-active post-create-btn-inactive">Post</button>
+            <img id="img-preview" src="#" alt=''/> 
+            
           </form>
         </div>
         <div class="input-card-footer">
@@ -39,22 +40,32 @@
                 {% endif %}
               </a>
               <small class="PLACEHOLDER">{{post.date_posted}}</small>
-              <p class="post-content">{{post.content}}</p>
-            </div>
-            {% if post.image %}
+              <p class="post-content">{{post.content}} 
+                {% if post.image %}
             <div class="post-image-container">
               <img src="{{ post.image.url }}" class="post-image-attachment">
             </div>
             {% endif %}
+              </p>
+            </div>
+            
           </div>
           <div class="post-footer">
             <div class="interactions-container">
               <div class="like-button-container">
-                {% include 'main/components/post-like-button.html' %} <span class="interactions-count">{{post.likes_amount}}</span>
+                <i
+                  class="button-like-post fa-regular fa-heart"
+                  {% if user.is_authenticated %}
+                  onclick="changePostLikeStatus({{post.id}})"
+                  {% else %}
+                  onclick="showModal()"
+                  {% endif %}
+                ></i>
+                <span class="interactions-count">{{post.likes_amount}}</span>
               </div>
               <div class="comment-button-container">
                 <a href={% url 'post-detail' post.id %}> 
-                  <i class="button-like-post fa-regular fa-comments"></i>
+                  <i class="button-like-post fa-regular fa-comments fa-fw"></i>
                   <span class="interactions-count"> {{post.comments_amount}}</span>
                 </a>
               </div>
@@ -94,6 +105,7 @@
   <script src="{% static '/main/js/infinite.min.js' %}"></script>
   <script src="{% static '/main/js/infiniteScroll.js' %}"></script>
   <script src="{% static '/main/js/previewFormImage.js' %}"></script>
+  <script src="{% static '/main/js/post.js' %}"></script>
 
 </div>
 {% endblock content %}
