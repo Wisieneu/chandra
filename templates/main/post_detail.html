@@ -25,7 +25,6 @@
     </div>
     <!-- move this to top right of the post container -->
     {% include "main/components/post-delete-confirm.html" %}
-    {% include "main/components/post-edit-modal.html" %}
     <p class="inactive replying-to">
       Replying to <span class="replying-span">@{{post.author}}</span>
     </p>
@@ -35,9 +34,12 @@
         src="{{ user.profile.profile_picture.url }}"
       />
       <form class="comment-form" method="POST" enctype="multipart/form-data">
-        {% csrf_token %} {{ form|crispy }}
+        {% csrf_token %} {{ form.content }}
+        <div class="wrapper">
+          {{ form.image }}
+          <button type="submit" class="comment-btn-inactive comment-btn-active">Post</button>
+        </div>
         <img id="img-preview" src="#" alt="your image" /> 
-        <button type="submit" class="comment-btn-inactive comment-btn-active">Post</button>
       </form>
     </div>
   </div>

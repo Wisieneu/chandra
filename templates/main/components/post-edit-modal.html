@@ -1,8 +1,0 @@
-<div class="modal-post-edit">
-    <form class="edit-form" method="POST" action={% url "post-edit" post.id %}>
-        {% csrf_token %}
-        <input type="hidden" value="/" name="next" />
-        <textarea required class="post-edit-textarea text-input" name="content">{{ post.content }}</textarea>
-        <input type="submit" value="EDIT">
-    </form>
-</div>

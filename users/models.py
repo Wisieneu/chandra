@@ -16,7 +16,7 @@ class Profile(models.Model):
         result = f'{self.user.username}'
         if self.display_name:
             result += f' ({self.display_name})'
-        return f"{result}'s profile"
+        return f"{result}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

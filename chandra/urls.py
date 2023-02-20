@@ -19,7 +19,8 @@ from main.views import (
     like_comment,
     settings_view,
     get_posts_json,
-    CommentCreateView
+    CommentCreateView,
+    RepostView,
 )
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('post/<int:post_id>/', PostDetailView.as_view(), name='post-detail'),
     path('post/edit/<int:pk>', PostUpdateView.as_view(), name='post-edit'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),
+    path('post/<int:pk>/repost', RepostView.as_view(), name='post-repost'),
     path('like/<int:pk>', like_post, name='like-post'),
     path('post/<int:pk>/addcomment', CommentCreateView.as_view(), name='comment-create'),
     path('likecomment/<int:comment_id>', like_comment, name='like-comment'),

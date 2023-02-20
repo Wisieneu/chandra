@@ -1,0 +1,8 @@
+<i
+    class="button-like-post fa-regular fa-heart"
+    {% if user.is_authenticated %}
+    onclick="changePostLikeStatus({{post.id}})"
+    {% else %}
+    onclick="showModal()"
+    {% endif %}
+></i>

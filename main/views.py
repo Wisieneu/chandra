@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic import (
     ListView,
-    DetailView,
     CreateView,
     UpdateView,
     DeleteView,
@@ -28,15 +27,15 @@ class IndexView(ListView, ModelFormMixin):
     ordering = ['-date_posted']
     paginate_by = 8
     form_class = PostCreateForm
-        
+
     def get_context_data(self, **kwargs):
         self.object = None
         return super().get_context_data(**kwargs)
-       
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
+
     def post(self, *args, **kwargs):
         self.object = None
         if not self.request.user.is_authenticated:
@@ -47,7 +46,7 @@ class IndexView(ListView, ModelFormMixin):
             post_instance.author = self.request.user
             post_instance.save()
             return HttpResponseRedirect(post_instance.get_absolute_url())
-            
+
 
 class PostDetailView(ListView, ModelFormMixin):
     ordering = ['-date_added']
@@ -56,20 +55,20 @@ class PostDetailView(ListView, ModelFormMixin):
     template_name = 'main/post_detail.html'
     paginate_by = 8
     form_class = CommentForm
-    
+
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(post__id=self.kwargs['post_id'])
-    
+
     def get_context_data(self):
         self.object = None
         context = super().get_context_data()
         context['post'] = get_object_or_404(Post, id=self.kwargs['post_id'])
         return context
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
+
     def post(self, *args, **kwargs):
         self.object = None
         if not self.request.user.is_authenticated:
@@ -78,19 +77,17 @@ class PostDetailView(ListView, ModelFormMixin):
         if self.form.is_valid():
             comment_instance = self.form.save(commit=False)
             comment_instance.author = self.request.user
-            comment_instance.post = Post.objects.filter(id=self.kwargs['post_id']).first()
-            print(self.kwargs['post_id'])
+            comment_instance.post = Post.objects.filter(
+                id=self.kwargs['post_id']).first()
             comment_instance.save()
             return HttpResponseRedirect(comment_instance.get_absolute_url())
-    
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['content']
     template_name = 'main/components/post-edit.html'
 
-    
-    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -106,15 +103,30 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
-    
+
     def get(self, *args, **kwargs):
         raise PermissionDenied
-    
+
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
         return False
+
+
+class RepostView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['content', 'reposted_post']
+    template_name = 'main/components/functional-only/share-post.html'
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.reposted_post = Post.objects.filter(id=self.kwargs['pk']).first()
+        return super().form_valid(form)
+    
+    def get(self, *args, **kwargs):
+        raise Http404
+        
 
 @login_required
 def like_post(request, pk):
@@ -128,6 +140,7 @@ def like_post(request, pk):
         'liking_users_list': post.liking_users_list
     }
     return JsonResponse(data=response)
+
 
 @login_required
 def like_comment(request, comment_id):
@@ -144,6 +157,7 @@ def like_comment(request, comment_id):
     }
     return JsonResponse(data=response)
 
+
 def settings_view(request):
     if request.method == 'POST':
         form = ProfileUpdateForm(
@@ -155,7 +169,6 @@ def settings_view(request):
     else:
         form = ProfileUpdateForm()
     return render(request, 'main/settings.html', {'profile_edit_form': form})
-
 
 
 # REST API views for JSON posts data - for potential use for later
@@ -179,7 +192,7 @@ def get_posts_json(request, *args, **kwargs):
 def get_post_detail_json(request, post_id, *args, **kwargs):
     # REST API VIEW
     # To be consumed by JS
-    # Returns JSON data of a Post object 
+    # Returns JSON data of a Post object
     status = 200
     try:
         obj = Post.objects.get(id=post_id)
@@ -188,7 +201,7 @@ def get_post_detail_json(request, post_id, *args, **kwargs):
         data = 'Not found'
         status = 404
     return JsonResponse(data=data, status=status)
-        
+
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment

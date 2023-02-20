@@ -9,7 +9,7 @@ MAX_COMMENT_LENGTH = 280
 class PostCreateForm(forms.ModelForm):
     content = forms.CharField(max_length=280, required=True, label='', widget=forms.Textarea(
         attrs={'class': 'post-textarea', 'name': 'content', 'placeholder': "What's happening?"}))
-    image = forms.ImageField(required=False, label='', widget=forms.FileInput(
+    image = forms.ImageField(required=False, widget=forms.FileInput(
         attrs={'class': 'clearablefileinput form-control-file', "accept":"image/*", "id":"img-input"}))
 
     class Meta:
@@ -38,3 +38,4 @@ class CommentForm(forms.ModelForm):
         if len(content) > MAX_COMMENT_LENGTH:
             raise forms.ValidationError('This comment is too long')
         return content
+

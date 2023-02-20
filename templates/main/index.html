@@ -7,11 +7,18 @@
         <div class="tweet-area">
           <form id="create-post-form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form|crispy }}
-            <button class="post-create-btn-active post-create-btn-inactive">Post</button>
-            <img id="img-preview" src="#" alt=''/> 
-            
-          </form>
+            <div class="form-group" id="div_id_content">
+              {{ form.content }}
+            </div>
+            <div class="" id="">
+              {{ form.image }}
+              <button class="post-create-btn-active post-create-btn-inactive">Post</button>
+            </div>
+              <div class="image-preview-wrapper">
+                <a id='remove-attachment-btn'>x</a>
+                <img id="img-preview" src="#" alt=''/> 
+              </div>
+            </form>
         </div>
         <div class="input-card-footer">
           <span class="counter">100</span>
@@ -20,69 +27,7 @@
       <div class="infinite-container">
         {% for post in posts %}
         <div class="post-wrapper infinite-item" id="post-{{post.id}}">
-          <div
-            class="main-page-post-wrapper"
-            style="cursor: pointer"
-            onclick="location.href='/post/{{ post.id }}';"
-          >
-            <a class="PLACEHOLDER" href="profile/{{post.author.username}}"
-              ><img
-                class="post-image"
-                src="{{post.author.profile.profile_picture.url}}"
-            /></a>
-            <div class="name-date">
-              <a class="post-nickname" href="profile/{{post.author.username}}">
-                {% if post.author.username == post.author.profile.display_name%} 
-                {{post.author.username}} 
-                {% else %}
-                {{post.author.profile.display_name}}
-                <span id="greyed-out-tag-name-span">@{{post.author.username}}</span>
-                {% endif %}
-              </a>
-              <small class="PLACEHOLDER">{{post.date_posted}}</small>
-              <p class="post-content">{{post.content}} 
-                {% if post.image %}
-            <div class="post-image-container">
-              <img src="{{ post.image.url }}" class="post-image-attachment">
-            </div>
-            {% endif %}
-              </p>
-            </div>
-            
-          </div>
-          <div class="post-footer">
-            <div class="interactions-container">
-              <div class="like-button-container">
-                <i
-                  class="button-like-post fa-regular fa-heart"
-                  {% if user.is_authenticated %}
-                  onclick="changePostLikeStatus({{post.id}})"
-                  {% else %}
-                  onclick="showModal()"
-                  {% endif %}
-                ></i>
-                <span class="interactions-count">{{post.likes_amount}}</span>
-              </div>
-              <div class="comment-button-container">
-                <a href={% url 'post-detail' post.id %}> 
-                  <i class="button-like-post fa-regular fa-comments fa-fw"></i>
-                  <span class="interactions-count"> {{post.comments_amount}}</span>
-                </a>
-              </div>
-              <div class="share-btn">
-                <!-- Expandable menu on click with 2 options: 
-                     repost
-                     repost with messsage
-                          clicking the second one displays a modal that asks you to enter a repost message and has a 'repost' submit button as well
-                -->
-                <button class="repost-btn"><i class="fa-solid fa-retweet"></i></button><span class="interactions-count"> {{post.reposts_amount}}</span>
-                <form method="POST" action="{% url 'post-repost' post.id %}">
-                  <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Repost</button>
-                </form>
-                <button class="repost-btn"><i class="fa-solid fa-retweet"></i> Quote Repost</button>
-              </div>
-            </div>
-          </div>
+          {% include 'main/components/post-display-list.html' %}
         </div>
         {% endfor %}
       </div>
