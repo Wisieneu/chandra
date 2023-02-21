@@ -8,7 +8,8 @@ from users.views import (
     UserProfileView,
     profile_redirect,
     logout_view,
-    signup_view
+    signup_view,
+    settings_view
 )
 from main.views import (
     IndexView,
@@ -17,10 +18,7 @@ from main.views import (
     PostDeleteView,
     like_post,
     like_comment,
-    settings_view,
-    get_posts_json,
     CommentCreateView,
-    RepostView,
 )
 
 urlpatterns = [
@@ -30,12 +28,12 @@ urlpatterns = [
     path('post/<int:post_id>/', PostDetailView.as_view(), name='post-detail'),
     path('post/edit/<int:pk>', PostUpdateView.as_view(), name='post-edit'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),
-    path('post/<int:pk>/repost', RepostView.as_view(), name='post-repost'),
     path('like/<int:pk>', like_post, name='like-post'),
     path('post/<int:pk>/addcomment', CommentCreateView.as_view(), name='comment-create'),
     path('likecomment/<int:comment_id>', like_comment, name='like-comment'),
     # post JSON URLs
-    path('json/posts/all', get_posts_json, name='posts-json'),
+    # path('json/posts/all', get_posts_json, name='posts-json'),
+    # path('json/post/<int:pk>', get_posts_json, name='posts-detail-json'),
     # profile URLs
     path('profile/<slug:slug>', UserProfileView.as_view(), name='profile'),
     path('profile-self/', profile_redirect, name='profile-self'),
