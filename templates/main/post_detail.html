@@ -21,7 +21,7 @@
     </div>
     {% endif %}
     <div class="post-footer">
-      <p id="likesDetail">Likes: {{ post.likes_amount }}</p>
+      <p id="likesDetail"><i class="button-like-comment fa-regular fa-heart"></i> {{ post.likes_amount }}</p>
     </div>
     <!-- move this to top right of the post container -->
     {% include "main/components/post-delete-confirm.html" %}
@@ -35,11 +35,11 @@
       />
       <form class="comment-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{ form.content }}
-        <div class="wrapper">
+        <div class="wrapper-form-detail">
           {{ form.image }}
           <button type="submit" class="comment-btn-inactive comment-btn-active">Post</button>
         </div>
-        <img id="img-preview" src="#" alt="your image" /> 
+        <img id="img-preview" src="#" alt="" /> 
       </form>
     </div>
   </div>

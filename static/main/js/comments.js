@@ -10,14 +10,13 @@ const textAreaState = document.querySelector('.comment-textarea').addEventListen
 const replyingTo = document.querySelector('.replying-to')
 const textArea = document.querySelector('.comment-textarea')
 const button = document.querySelector('.comment-btn-active')
-
+const imagePreview = document.getElementById('img-preview')
 
 // resizes the text area automatically as the text gets longer
 
 textArea.addEventListener('input', autoResize, false);
           
     function autoResize() {
-        this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     }
 
