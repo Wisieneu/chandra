@@ -13,7 +13,7 @@
 
     <div class="profile-right-part">
       {% if user.pk == profile.user.pk %}
-      <button class="edit-btn">Edit Profile</button>
+      <a href={% url 'settings' %}><button class="edit-btn">Edit Profile</button></a>
       {% endif %}
       <button class="follow-btn">Follow</button>
     </div>

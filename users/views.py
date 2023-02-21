@@ -63,13 +63,15 @@ class UserProfileView(ListView):
 def settings_view(request):
     if request.method == 'POST':
         profile_update_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.Profile)
+            request.POST, request.FILES, instance=request.user.profile)
         user_update_form = UserUpdateForm(
-            request.POST, instance=request.User)
-        if form.is_valid:
-            form.save()
+            request.POST, instance=request.user)
+        if profile_update_form.is_valid() and user_update_form.is_valid():
+            profile_update_form.save()
+            user_update_form.save()
             messages.success(request, 'Your account has been updated.')
             return redirect('settings')
     else:
-        form = ProfileUpdateForm()
+        profile_update_form = ProfileUpdateForm(instance=request.user.profile)
+        user_update_form = UserUpdateForm(instance=request.user)
     return render(request, 'main/settings.html', {'profile_update_form': profile_update_form, 'user_update_form': user_update_form})
