@@ -11,11 +11,10 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView,
-    CreateView
+    CreateView,
 )
 
 from .forms import CommentForm, PostCreateForm
-from users.forms import ProfileUpdateForm
 from main.models import Post, Comment
 
 
@@ -141,19 +140,6 @@ def like_comment(request, comment_id):
         'liking_users_list': comment.liking_users_list
     }
     return JsonResponse(data=response)
-
-
-def settings_view(request):
-    if request.method == 'POST':
-        form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.Profile)
-        if form.is_valid:
-            form.save()
-            messages.success(request, 'Your account has been updated.')
-            return redirect('settings')
-    else:
-        form = ProfileUpdateForm()
-    return render(request, 'main/settings.html', {'profile_edit_form': form})
 
 
 # REST API views for JSON posts data - for potential use for later

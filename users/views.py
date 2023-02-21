@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -8,11 +7,10 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.views.generic import (
     ListView,
-    TemplateView,
-    RedirectView
+
 )
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from .models import Profile
 from main.models import Post
 
@@ -60,3 +58,18 @@ class UserProfileView(ListView):
         context = super().get_context_data()
         context['profile'] = get_object_or_404(Profile, slug=self.kwargs['slug'])
         return context
+
+@login_required
+def settings_view(request):
+    if request.method == 'POST':
+        profile_update_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.Profile)
+        user_update_form = UserUpdateForm(
+            request.POST, instance=request.User)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Your account has been updated.')
+            return redirect('settings')
+    else:
+        form = ProfileUpdateForm()
+    return render(request, 'main/settings.html', {'profile_update_form': profile_update_form, 'user_update_form': user_update_form})
