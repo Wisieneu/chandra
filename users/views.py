@@ -74,4 +74,6 @@ def settings_view(request):
     else:
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
         user_update_form = UserUpdateForm(instance=request.user)
-    return render(request, 'main/settings.html', {'profile_update_form': profile_update_form, 'user_update_form': user_update_form})
+    return render(request, 'main/settings.html', {'profile_update_form': profile_update_form,
+                                                  'user_update_form': user_update_form,
+                                                  'user': request.user})

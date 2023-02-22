@@ -2,6 +2,8 @@
 <form method='POST' enctype='multipart/form-data'>
     {% csrf_token %}
     {{ profile_update_form|crispy }}
+    current profile pic:
+    <img src={{ user.profile.profile_picture.url }} />
 </form> 
 <form method='POST' enctype='multipart/form-data'>
     {% csrf_token %}
