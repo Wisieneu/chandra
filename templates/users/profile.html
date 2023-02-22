@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %} {% block content %}
+{% extends 'main/base.html' %} {% block content %} {% load static %}
 <div class="page-wrapper">
   <div class="profile-bg"></div>
   <div class="profile-wrapper">
@@ -9,69 +9,76 @@
       <h3 class="profile_user_username">
         <span>@</span>{{ profile.user.username }}
       </h3>
-      <div class="follow-count">
-        <h3 class="following">
-          <span class="following-span">250</span>
-          <span class="only-text">FOLLOWING</span>
-        </h3>
-        <h3 class="followers">
-          <span class="followers-span">450</span>
-          <span class="only-text">FOLLOWERS</span>
-        </h3>
-      </div>
     </div>
 
     <div class="profile-right-part">
       {% if user.pk == profile.user.pk %}
-      <button class="edit-btn">Edit Profile</button>
+      <a href={% url 'settings' %}><button class="edit-btn">Edit Profile</button></a>
       {% endif %}
       <button class="follow-btn">Follow</button>
     </div>
   </div>
+
   <div class="infinite-container">
     {% for post in user_posts %}
-    <div class="post-wrapper infinite-item" onclick="location.href=' ';" style="cursor: pointer;">
-  
-    <a class="" href="profile/{{ post.author.username }}">    <img class="post-image" src="{{ post.author.profile.profile_picture.url }}"></a>
-        <div class="name-date">
-          <a class="post-nickname" href="profile/{{ post.author.username }}">{{ post.author }}</a>
-          <small class="">{{ post.date_posted|date:"F d, Y" }}</small>
-        </div>
-        <p class="post-content" >{{ post.content }}</p>
-      
-      </div>
+    <div class="post-wrapper infinite-item" id="post-{{post.id}}">
+      {% include 'main/components/post-display-list.html' %}
+    </div>
     {% endfor %}
   </div>
-  {% if page_obj.has_next %}
+
+  {% if is_paginated %} {% if page_obj.has_next %}
   <div class="row">
-    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"> 
+    <a
+      class="infinite-more-link"
+      href="?page={{ page_obj.next_page_number }}"
+    ></a>
+
+    {% endif %} {% endif %}
   </div>
-  {% endif %}
+
+  <div class="modal invisible">
+    <div class="modal-close-button" onclick="closeModal()">
+      <i class="fa-solid fa-x fa-fw"></i>
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="70"
+      height="70"
+      fill="currentColor"
+      class="bi bi-bookmark-heart"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"
+      />
+      <path
+        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"
+      />
+    </svg>
+
+    <p>You're not logged in, please select one of the options below!</p>
+
+    <a class="modal-anchor" href="{% url 'login' %}">
+      <button class="modal-button">Log in</button>
+    </a>
+
+    <a class="modal-anchor" href="{% url 'signup' %}">
+      <button class="modal-button">Sign up</button>
+    </a>
+  </div>
+
+  {{ user.is_authenticated|json_script:"isAuth" }}
 </div>
+</div>
+<div class="overlay invisible" onclick="closeModal()"></div>
 
-
-{% load static %}
+<script src="{% static '/main/js/like-comment-btn.js' %}"></script>
 <script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
 <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static '/main/js/infinite.min.js' %}"></script>
-<script>
-var infinite = new Waypoint.Infinite({
-    element: $('.infinite-container')[0],
-    handler: function(direction) {
-    
-},
-offset: 'bottom-in-view',
-onBeforePageLoad: function () {
-$('.spinner-border').show();
-},
-onAfterPageLoad: function () {
-$('.spinner-border').hide();
-}
+<script src="{% static '/main/js/infiniteScroll.js' %}"></script>
 
-    
-});
-</script>
+</div>
 {% endblock content %}
-
-
-<!-- koment bo bez niego nie chcialo zcommitowac bo nie widzialo zmian?????????? -->

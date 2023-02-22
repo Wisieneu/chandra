@@ -1,17 +1,96 @@
-{% extends 'main/base.html' %} {% block content %}
-
-<div class="wrapper">
-  <img
-    class=""
-    src="{{ post.author.profile.profile_picture.url }}"
-  />
-  <div class="">
-    <div class="">
-      <a class="mr-2" href="#">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+{% extends 'main/base.html' %} {% block content %} {% load static %} {% load crispy_forms_tags %}
+<div class="page-wrapper" id="post-{{ post.id }}">
+  <div class="wrapper">
+    <div class="author-date-wrapper">
+      <img
+        class="detail-img"
+        src="{{ post.author.profile.profile_picture.url }}"
+      />
+      <div class="detail-name-wrapper">
+        <a class="mr-2" href={% url 'profile' post.author.username %}>{{ post.author }}</a>
+        <h3 class="profile_user_username">
+          <span>@</span>{{ post.author.username }}
+        </h3>
+      </div>
     </div>
     <p class="article-content">{{ post.content }}</p>
+    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+    {% if post.image %}
+    <div class="post-image-containerMOZESZTOZMIENIC">
+      <img src="{{ post.image.url }}" class="post-image-attachment" />
+    </div>
+    {% endif %}
+    <div class="post-footer">
+      <p id="likesDetail"><i class="button-like-comment fa-regular fa-heart"></i> {{ post.likes_amount }}</p>
+    </div>
+    <!-- move this to top right of the post container -->
+    {% include "main/components/post-delete-confirm.html" %}
+    <p class="inactive replying-to">
+      Replying to <span class="replying-span">@{{post.author}}</span>
+    </p>
+    <div class="comment-wrapper">
+      <img
+        class="detail-img-comment"
+        src="{{ user.profile.profile_picture.url }}"
+      />
+      <form class="comment-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form.content }}
+        <div class="wrapper-form-detail">
+          {{ form.image }}
+          <button type="submit" class="comment-btn-inactive comment-btn-active">Post</button>
+        </div>
+        <img id="img-preview" src="#" alt="" /> 
+      </form>
+    </div>
+  </div>
+
+  <div class="comments-wrapper infinite-container">
+    {% for comment in comments %}
+    <div class="comment infinite-item" id="comment-{{ comment.id }}">
+      <img
+        class="detail-img-comment"
+        src="{{ comment.author.profile.profile_picture.url }}"
+      />
+      <div class="wrapper-img-author-date">
+        <p class="comment-author">
+          {{ comment.author }}
+          <span class="comment-date">{{comment.date_added}}</span>
+        </p>
+        <p class="comment-content">{{comment.content}}</p>
+      </div>
+      {% if comment.image %}
+      <div class="post-image-container">
+        <img src="{{ comment.image_url|default_if_none:'' }}" class="comment-image-attachment">
+      </div>
+      {% endif %}
+      <div class="like-button-container">
+        <i
+          class="button-like-comment fa-regular fa-heart"
+          {% if user.is_authenticated %}
+          onclick="changeCommentLikeStatus({{comment.id}})"
+          {% else %}
+          onclick="showModal()"
+          {% endif %}
+        ></i>
+        <span class="interactions-count">{{comment.likes_amount}}</span>
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </div>
-
+{% if is_paginated %} {% if page_obj.has_next %}
+<div class="row">
+  <a
+    class="infinite-more-link"
+    href="?page={{ page_obj.next_page_number }}"
+  ></a>
+</div>
+{% endif %} {% endif %} {{ user.is_authenticated|json_script:"isAuth" }}
+<script src="{% static '/main/js/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static '/main/js/infinite.min.js' %}"></script>
+<script src="{% static '/main/js/infiniteScroll.js' %}"></script>
+<script src="{% static '/main/js/comments.js' %}"></script>
+<script src="{% static '/main/js/likeButtons.js' %}"></script>
+<script src="{% static '/main/js/previewFormImage.js' %}"></script>
 {% endblock content %}
