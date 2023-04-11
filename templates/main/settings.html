@@ -1,10 +1,15 @@
 {% extends 'main/base.html' %} {% block content %} {% load static %} {% load crispy_forms_tags %}
-<form method='POST' enctype='multipart/form-data'>
+<form class='settings-form' method='POST' enctype='multipart/form-data'>
     {% csrf_token %}
     {{ profile_update_form|crispy }}
+    Current profile pic:
+    <img src={{ user.profile.profile_picture.url }} />
+    <button class='settings-btn' type="submit">Save changes</button>
 </form> 
-<form method='POST' enctype='multipart/form-data'>
+<form class='settings-form2' method='POST' enctype='multipart/form-data'>
     {% csrf_token %}
     {{ user_update_form|crispy }}
+    <button class='settings-btn' type="submit">Save changes</button>
 </form> 
 {% endblock content %}
+

@@ -227,6 +227,10 @@ button {
   z-index: 100;
 }
 
+.alert-danger {
+  background-color: rgb(105, 37, 37);
+}
+
 strong {
   display:none;
 }
@@ -234,7 +238,6 @@ strong {
 small{
   margin-top: 10px;
   margin-bottom: 10px;
-  color: hsl(12, 100%, 50%);
   text-align: center;
   position: relative;
   display: block;
@@ -242,6 +245,12 @@ small{
   list-style: none;
   list-style-type: none;
 }
+
+.alert-danger ul>li {
+  text-align: center;
+  color: white;
+}
+
 
 li::marker {
   display: none;
@@ -294,7 +303,7 @@ small#hint_id_password1>ul>li:nth-child(4)  {
   
 }
 
-small#hint_id_username {
+small {
   color: rgb(90, 162, 192);
   display: block;
   margin: 0 auto;
@@ -311,13 +320,44 @@ input#id_email {
 
 /* LOGIN PAGE STYLES */
 
+.m-0 {
+  text-align: center;
+}
+
 .m-0>li {
   list-style-type: none;
   color: red;
   text-align: center;
-  max-width: 22em;
+  
 }
 
 
+/* password reset form styles */
 
+.pw-reset-form {
+  width: 25em;
+  text-align: center;
+  margin-bottom: 2em;
+  background-color: #222;
+  padding-top: 4em;
+  padding-bottom: 2em;
+  border-radius: 10px;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.pw-reset-form p {
+  width: 350px;
+}
+
+.settings-btn {
+  margin-top: 160px;
+margin-right: 70px;
+width: 100px;
+text-align: center;
+height: 45px;
+border-radius: 20px;
+}

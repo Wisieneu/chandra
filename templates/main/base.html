@@ -41,7 +41,7 @@
           <i class="fa-solid fa-house-user fa-fw"></i> Home</a
         >
         <a href="#"> <i class="fa-solid fa-bell fa-fw"></i> Notifications</a>
-        <a href="#"><i class="fa-solid fa-gear fa-fw"></i> Settings</a>
+        <a href="{% url 'settings' %}"><i class="fa-solid fa-gear fa-fw"></i> Settings</a>
         {% if user.is_authenticated %}
         <a href="{% url 'profile-self' %}"
           ><i class="fa-solid fa-user fa-fw"></i> Profile</a

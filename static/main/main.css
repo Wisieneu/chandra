@@ -814,3 +814,38 @@ border: none;
 .post-image-container {
   margin-top: 10px;
 }
+
+
+/* Settings */
+
+.settings-form {
+  color: white;
+  
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-bottom: none;
+}
+
+.settings-form img {
+  width: 250px;
+}
+
+.settings-form2 {
+  margin-top: 30px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  border-top: 2px solid white;
+  border-bottom: none;
+}
+
+.settings-btn {
+  margin-top: 20px;
+  width: 100px;
+  font-size: 11px;
+  text-align: center;
+  height: 45px;
+  border-radius: 20px;
+  }
