@@ -1,4 +1,4 @@
-# Chandra - Connect with people! <a href="placeholder" target="_blank">Visit Here</a>
+# Chandra - Connect with people! <a href="wizzie.pl" target="_blank">Visit Here</a>
 <a href="placeholder" target="_blank">
 <img src="placeholder" width="100%" alt="chandra.com"/>
 </a>
@@ -19,7 +19,8 @@ A fullstack social media app to easily connect with your friends and family!
 
 ## Optimizations:
 
-We would definitely optimize the project for all devices and different screens using media queries, better color consistency and font/image sizes for each device. I'd also use preprocessors such as SASS, allowing me for much more organized file structure of the project.
+We would definitely optimize the project for all devices and different screens using media queries, better color consistency and font/image sizes for each device. I'd also use preprocessors such as SASS, allowing me for much more organized file structure of the project.  
+Additionally, multiple features could be added (such as useful notifications, implementing a password reset system via mail; following system, bio on profiles, site appearance customization and preferences)
 
 ## Lessons Learned:
 
