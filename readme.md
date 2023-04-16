@@ -1,4 +1,4 @@
-# Chandra - Connect with people! <a href="46.41.148.67" target="_blank">Visit Here</a>
+# Chandra - Connect with people! <a href="http://46.41.148.67" target="_blank">Visit Here</a>
 <a href="placeholder" target="_blank">
 <img src="placeholder" width="100%" alt="chandra.com"/>
 </a>
