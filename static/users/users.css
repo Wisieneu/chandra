@@ -57,21 +57,7 @@ select {
   font: inherit;
 }
 
-/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-    scroll-behavior: auto;
-  }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 
 /* Login Page */
 
@@ -102,7 +88,7 @@ input {
   width: 25em;
   text-align: center;
   margin-bottom: 2em;
-  background-color: #222;
+  background-color: #22222280;
   padding-top: 4em;
   padding-bottom: 2em;
   border-radius: 10px;
@@ -163,6 +149,7 @@ button {
   text-decoration: none;
   text-transform: uppercase;
   width: 50%;
+  font-family: "Orbitron", sans-serif;
 }
 
 .formFooter > a {
@@ -189,6 +176,65 @@ button {
 
 
 /* SIGNUP PAGE STYLES */
+
+
+body {
+  min-height: 100vh;
+  background: black
+}
+
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.bubbles {
+  position: relative;
+  display: flex;
+  z-index: -1;
+}
+
+.bubbles span {
+  position: relative;
+  width: 45px;
+  
+  background: rgb(21, 128, 128);
+  margin: 0 4px;
+  border-radius: 50%;
+  box-shadow: 120px 80px 40px 20px rgb(89, 180, 240);
+
+
+  animation: animate 15s linear infinite;
+  animation-duration: calc(1250s / var(--i));
+  
+}
+
+.bubbles span:nth-child(even) {
+  background: rgb(133, 64, 112);
+  box-shadow: 120px 80px 40px 20px rgb(143, 68, 120);
+}
+
+@keyframes animate {
+
+0% {
+  transform: translateY(100vh) scale(0)
+}
+
+100% {
+  transform: translateY(-10vh) scale(1)
+}
+
+}
+
+.form-smieszne {
+  z-index: 999;
+  position: absolute;
+  
+}
 
 .alert {
   font-family: "Montserrat", sans-serif;
