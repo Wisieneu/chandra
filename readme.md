@@ -1,7 +1,4 @@
-# Chandra - Connect with people! <a href="http://46.41.148.67" target="_blank">Visit Here</a>
-<a href="placeholder" target="_blank">
-<img src="placeholder" width="100%" alt="chandra"/>
-</a>
+# Chandra - Connect with people!
 
 A fullstack social media app to easily connect with your friends and family!
 
@@ -26,32 +23,3 @@ Additionally, multiple features could be added (such as useful notifications, im
 
 The most important thing we learned was how to efficiently setup my workspace and work as a team. We understood that settling certain code ettiquette and communication rules was an urgency at the very start. That's why we used Git and Trello to easily organize our workflow and always knew what to work on next. The project was also a great lesson on using template languages, implementing database and authorization, and manipulating the DOM with JavaScript efficiently, alongside with mastering intermediate proficiency with popular, numerous backend mainstream tools. 
 Additionally, the project made me realize how important consistency and motivation is. With regular code reviews and retro meetings came a feeling of consistency and progress that kept us going wanting to learn more and deliver a better quality application. As for our daily workflow, we understood that the key to great communication in this industry are <strong>clear</strong> and <strong>comprehensive</strong> task descriptions with specific guidelines (which is where my previous QA position's experience came in handy)
-
-## More Projects
-
-<table bordercolor="#66b2b2">
-  
-  <tr>
-    <td width="33.3%"  style="align:center;" valign="top">
-<a target="_blank" href="placholder">project1</a>
-        <br />
-      <a target="_blank" href="placholder">
-            <img src="placholder" width="100%"  alt="placholder"/>
-        </a>
-    </td>
-    <td width="33.3%" valign="top">
-<a target="_blank" href="placholder"> placholder</a>
-      <br />
-        <a target="_blank" href="placholder">
-          <img src="placholder" width="100%" alt="placholder"/>
-        </a>
-    </td>
-    <td width="33.3%" valign="top">
-<a target="_blank" href="placholder">Portfolio</a>
-        <br />
-        <a target="_blank" href="placholder">
-          <img src="placholder" width="100%" alt="Portfolio"/>
-        </a>
-    </td>
-  </tr>
-</table>
